@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/iconProfile"
+        android:title="Profile"
+        android:icon="@drawable/icon_profile"
+        />
+    <item android:id="@+id/iconGroup"
+        android:title="Create Group"
+        android:icon="@drawable/icon_group"
+        />
+    <item android:id="@+id/iconLight"
+        android:title="Light"
+        android:icon="@drawable/icon_light"
+        />
+    <item android:id="@+id/iconChangePass"
+        android:title="Change Password"
+        android:icon="@drawable/icon_password"
+        />
+    <item android:id="@+id/iconLogout"
+        android:title="Log Out"
+        android:icon="@drawable/icon_logout"
+        />
+</menu>
