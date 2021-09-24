@@ -10,6 +10,8 @@ public class Room implements Serializable {
     private List<User> userList;
     private Date createDate;
 
+    public Room() {
+    }
 
     public int getId() {
         return id;

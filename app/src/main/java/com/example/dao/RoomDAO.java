@@ -10,6 +10,27 @@ import java.util.List;
 
 public class RoomDAO extends DAO{
 
+    public RoomDAO() {
+        super();
+    }
+
+    public boolean changeRoleUserInRom(Room room, User user, String role) {
+        UserInRoomDAO userInRoomDAO = new UserInRoomDAO();
+        boolean foundUserInRoom = userInRoomDAO.checkUserInRoom(user, room);
+        if (!foundUserInRoom) return false;
+        try {
+            String sql = "update tbluserinroom set role=? where roomid=? and userid=?";
+            PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, room.getId());
+            ps.setInt(2, user.getId());
+            ps.setString(3, role);
+            ps.executeUpdate();
+            return true;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public List<User> getUsers(Room room) {
         List<User> users = new ArrayList<>();
 

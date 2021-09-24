@@ -10,6 +10,10 @@ import java.util.List;
 
 public class MessageDAO extends DAO{
 
+    public MessageDAO() {
+        super();
+    }
+
     public boolean saveMessage(Message message) {
         String sql = "insert into tblmessage(authorid, roomid, chatfileid, content, status, createat) value(?,?,?,?,?,?)";
         try {

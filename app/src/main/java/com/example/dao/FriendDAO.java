@@ -3,12 +3,18 @@ package com.example.dao;
 import com.example.model.FriendRequest;
 import com.example.model.User;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class FriendDAO extends DAO{
+
+    public FriendDAO() {
+        super();
+    }
 
     public List<User> getFriends(User user) {
         UserDAO userDAO = new UserDAO();
@@ -32,11 +38,12 @@ public class FriendDAO extends DAO{
 
     public boolean addFriend(FriendRequest fr) {
 
-        String sql = "insert into tblfriend(idfriend1, idfriend2) value(?,?)";
+        String sql = "insert into tblfriend(idfriend1, idfriend2, createat) value(?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setInt(1, fr.getReceiver().getId());
             ps.setInt(2, fr.getSender().getId());
+            ps.setDate(3, new Date(Calendar.getInstance().getTimeInMillis()));
             ps.executeUpdate();
             return true;
 

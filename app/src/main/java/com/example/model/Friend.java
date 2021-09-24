@@ -9,6 +9,12 @@ public class Friend implements Serializable {
     private Date friendDate;
     private User friend2;
 
+
+    public Friend(User friend1, User friend2) {
+        this.friend1 = friend1;
+        this.friend2 = friend2;
+    }
+
     public int getId() {
         return id;
     }

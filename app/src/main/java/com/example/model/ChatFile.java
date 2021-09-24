@@ -8,6 +8,14 @@ public class ChatFile implements Serializable {
     private String name;
     private String url;
 
+    public ChatFile() {
+    }
+
+    public ChatFile(String name, String url) {
+        this.name = name;
+        this.url = url;
+    }
+
     public int getId() {
         return id;
     }

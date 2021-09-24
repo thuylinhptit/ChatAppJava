@@ -6,9 +6,15 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class UserDAO extends DAO{
+
+    public UserDAO() {
+        super();
+    }
 
     public boolean checkLogin(User user) {
         String sql = "select * from tbluser where username=? and password=?";
@@ -101,5 +107,59 @@ public class UserDAO extends DAO{
             e.printStackTrace();
         }
         return user;
+    }
+
+    public List<User> findUsersByFullName(String fullname) {
+        List<User> listUser = new ArrayList<>();
+        String sql = "select id from tbluser where fullname like ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, fullname);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                User u = getUser(rs.getInt("id"));
+                listUser.add(u);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listUser;
+    }
+
+    public List<User> findUsersByPhoneNum(String phoneNum) {
+        List<User> listUser = new ArrayList<>();
+        String sql = "select id from tbluser where phone like ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, phoneNum);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                User u = getUser(rs.getInt("id"));
+                listUser.add(u);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listUser;
+    }
+
+    public List<User> findUsersByEmail(String email) {
+        List<User> listUser = new ArrayList<>();
+        String sql = "select id from tbluser where email like ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                User u = getUser(rs.getInt("id"));
+                listUser.add(u);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listUser;
     }
 }

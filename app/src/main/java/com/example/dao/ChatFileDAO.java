@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 
 public class ChatFileDAO extends DAO{
 
+    public ChatFileDAO() {
+        super();
+    }
 
     public boolean saveFile(ChatFile chatFile) {
         String sql = "insert into tblchatfile(name, url) value(?,?)";

@@ -9,6 +9,11 @@ public class FriendRequest implements Serializable {
     private User receiver;
     private Date createDate;
 
+    public FriendRequest() {
+    }
+
+
+
     public int getId() {
         return id;
     }

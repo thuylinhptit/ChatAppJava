@@ -12,6 +12,14 @@ public class Message implements Serializable {
     private String status;
     private Date createDate;
 
+    public Message() {
+    }
+
+    public Message(User author, Room room, String content) {
+        this.author = author;
+        this.room = room;
+        this.content = content;
+    }
 
     public int getId() {
         return id;

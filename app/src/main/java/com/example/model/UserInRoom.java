@@ -8,6 +8,9 @@ public class UserInRoom implements Serializable {
     private Room room;
     private String role;
 
+    public UserInRoom() {
+    }
+
     public int getId() {
         return id;
     }
