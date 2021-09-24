@@ -36,18 +36,18 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:id="@+id/centerHorizontal"/>
-    
+
     <com.hbb20.CountryCodePicker
-        app:ccp_contentColor="@color/white"
         android:id="@+id/countryCode"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:ccp_areaCodeDetectedCountry="true"
         android:layout_centerInParent="true"
-        app:ccp_autoDetectCountry="true"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"/>
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="20dp"
+        app:ccp_areaCodeDetectedCountry="true"
+        app:ccp_autoDetectCountry="true"
+        app:ccp_contentColor="@color/white" />
 
     <EditText
         android:id="@+id/getPhoneNumber"
