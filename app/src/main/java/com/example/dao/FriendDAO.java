@@ -16,14 +16,14 @@ public class FriendDAO extends DAO{
         super();
     }
 
-    public List<User> getFriends(User user) {
+    public List<User> getFriends(int user) {
         UserDAO userDAO = new UserDAO();
 
         List<User> users = new ArrayList<>();
         String sql = "select tblfriend.idfriend2 from tblfriend where idfriend1=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, user.getId());
+            ps.setInt(1, user);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 User userr = userDAO.getUser(rs.getInt("idfriend2"));

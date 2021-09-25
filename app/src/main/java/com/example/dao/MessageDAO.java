@@ -32,13 +32,13 @@ public class MessageDAO extends DAO{
         return false;
     }
 
-    public List<Message> getMessages(Room room) {
+    public List<Message> getMessages(int room) {
         List<Message> mess = new ArrayList<>();
 
         String sql = "select * from tblmessage where roomid=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, room.getId());
+            ps.setInt(1, room);
             ResultSet rs = ps.executeQuery();
             UserDAO userDAO = new UserDAO();
             RoomDAO roomDAO = new RoomDAO();
@@ -60,11 +60,11 @@ public class MessageDAO extends DAO{
         return mess;
     }
 
-    public boolean deleteMessage(Message message) {
+    public boolean deleteMessage(int message) {
         String sql = "delete from tblmessage where id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, message.getId());
+            ps.setInt(1, message);
             ps.executeUpdate();
             return true;
         }catch ( Exception e) {

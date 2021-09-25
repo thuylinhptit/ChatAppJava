@@ -53,11 +53,11 @@ public class UserDAO extends DAO{
         return false;
     }
 
-    public boolean deleteAccount(User user) {
+    public boolean deleteAccount(int idUser) {
         String sql = "delete from tbluser where id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, user.getId());
+            ps.setInt(1, idUser);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -162,4 +162,8 @@ public class UserDAO extends DAO{
         }
         return listUser;
     }
+
+
+
+
 }
