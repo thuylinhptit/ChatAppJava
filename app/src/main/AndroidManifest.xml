@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp2">
         <activity android:name=".ChatScreen"></activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".SetProfile" />
         <activity android:name=".Authentication" />
         <activity android:name=".MainActivity" />
@@ -23,5 +24,8 @@
             </intent-filter>
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

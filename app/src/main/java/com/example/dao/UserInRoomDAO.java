@@ -65,14 +65,24 @@ public class UserInRoomDAO extends DAO{
 
     public List<User> getUsersInRoom(int roomId) {
         List<User> listUser = new ArrayList<>();
-        UserDAO userDAO = new UserDAO();
-        String sql = "select userid from tbluserinroom where roomid=?";
+        String sql =
+        "select * from tbluser, tbluserinroom, tblroom where tbluser.id=tbluserinroom.userid and tbluserinroom.roomid=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, roomId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                listUser.add(userDAO.getUser(rs.getInt("userid")));
+                User user = new User();
+                user.setId(rs.getInt("tbluser.id"));
+                user.setUsername(rs.getString("tbluser.username"));
+                user.setPassword(rs.getString("tbluser.password"));
+                user.setFullName(rs.getString("tbluser.fullname"));
+                user.setEmail(rs.getString("tbluser.email"));
+                user.setDateOfBirth(rs.getDate("tbluser.dob"));
+                user.setPhoneNum(rs.getString("tbluser.phone"));
+                user.setAddress(rs.getString("tbl.address"));
+
+                listUser.add(user);
             }
 
         } catch (Exception e) {

@@ -17,6 +17,7 @@ public class UserDAO extends DAO{
     }
 
     public boolean checkLogin(User user) {
+        if (con == null) return false;
         String sql = "select * from tbluser where username=? and password=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
