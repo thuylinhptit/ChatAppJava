@@ -60,6 +60,12 @@
                 android:id="@+id/activity_main_loginButton"
                 android:text="Submit"
                 android:textSize="22sp"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/activity_main_registerButton"
+                android:text="Register"
+                android:textSize="22sp"/>
 
         </LinearLayout>
 

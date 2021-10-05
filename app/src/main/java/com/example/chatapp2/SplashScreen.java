@@ -5,7 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.view.WindowManager;
+
+import com.example.controller.SocketCurrent;
+
+import model.IPAddress;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -16,6 +21,10 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        new SocketCurrent(new IPAddress("192.168.1.103", 9086));
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -28,5 +37,6 @@ public class SplashScreen extends AppCompatActivity {
 
             }
         },SPLASH_TIMER);
+
     }
 }

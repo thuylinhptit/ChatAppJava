@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.chatapp2">
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,14 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp2">
-        <activity android:name=".ChatScreen"></activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity
+            android:name="com.example.testTai.RegisterActivity"
+            android:exported="true" />
+        <activity android:name=".ChatScreen" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".SetProfile" />
         <activity android:name=".Authentication" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".SplashScreen"
-            android:exported="true"
-            >
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,8 +32,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 </manifest>

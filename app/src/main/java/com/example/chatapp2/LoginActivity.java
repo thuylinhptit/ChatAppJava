@@ -9,17 +9,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.dao.UserDAO;
-import com.example.model.User;
+import com.example.controller.LoginController;
+import com.example.testTai.RegisterActivity;
+
+import dao.UserDAO;
+import model.ConnectionType;
+import model.IPAddress;
+import model.ObjectWrapper;
+import model.User;
+
+import java.io.IOException;
+import java.net.Socket;
 
 public class LoginActivity extends AppCompatActivity {
     EditText usernameTxt;
     EditText passwordTxt;
-    Button loginBtn;
+    Button loginBtn, registerBtn;
+    private LoginController loginController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        if (LoginController.getInstance() == null || (LoginController.getInstance() != null && !LoginController.getInstance().isLoggin)) {
+            loginController = new LoginController(this);
+            loginController.openConnection();
+        }
         init();
     }
 
@@ -27,25 +41,54 @@ public class LoginActivity extends AppCompatActivity {
         usernameTxt = (EditText) findViewById(R.id.activity_main_usernameEditText);
         passwordTxt = (EditText) findViewById(R.id.activity_main_passwordEditText);
         loginBtn = (Button) findViewById(R.id.activity_main_loginButton);
-        UserDAO dao = new UserDAO();
+        registerBtn = (Button) findViewById(R.id.activity_main_registerButton);
+//        UserDAO dao = new UserDAO();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User u = new User(usernameTxt.getText().toString(), passwordTxt.getText().toString());
-                boolean login = dao.checkLogin(u);
-                System.out.println("user: " + u.getUsername() + "- password: " + u.getPassword());
-                if (login) {
-                    changeIntent(v);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Incorrect", Toast.LENGTH_SHORT).show();
-                }
+                loginController.sendData(new ObjectWrapper(u, ConnectionType.LOGIN));
+            }
+        });
+
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeScreenToRegister();
+//                new RegisterActivity().setVisible(true);
             }
         });
     }
 
-    private void changeIntent(View view) {
-        Intent myIntent = new Intent(view.getContext(), ChatScreen.class);
+    public void changeScreenToMain() {
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                loginController.closeConnection();
+                changeIntent();
+            }
+        });
+
+    }
+
+    private void changeScreenToRegister() {
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                Intent myIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+    }
+    public void showToast(String text) {
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void changeIntent() {
+        Intent myIntent = new Intent(LoginActivity.this, ChatScreen.class);
         startActivity(myIntent);
         finish();
     }
