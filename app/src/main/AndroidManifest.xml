@@ -9,13 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp2">
-        <activity android:name=".ChatScreen"></activity>
+        <activity android:name=".RegisterScreen"></activity>
+        <activity android:name=".ChatScreen" />
         <activity android:name=".SetProfile" />
         <activity android:name=".Authentication" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".SplashScreen"
-            android:exported="true"
-            >
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
