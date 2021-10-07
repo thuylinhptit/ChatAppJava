@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.example.controller.LoginController;
 import com.example.testTai.RegisterActivity;
 
-import dao.UserDAO;
 import model.ConnectionType;
 import model.IPAddress;
 import model.ObjectWrapper;
@@ -42,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         passwordTxt = (EditText) findViewById(R.id.activity_main_passwordEditText);
         loginBtn = (Button) findViewById(R.id.activity_main_loginButton);
         registerBtn = (Button) findViewById(R.id.activity_main_registerButton);
-//        UserDAO dao = new UserDAO();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
