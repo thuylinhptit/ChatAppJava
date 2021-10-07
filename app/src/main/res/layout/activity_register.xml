@@ -42,7 +42,7 @@
         />
 
     <EditText
-        android:id="@+id/activity_main_usernameEditText"
+        android:id="@+id/txtName"
         android:layout_width="match_parent"
         android:layout_height="63dp"
         android:inputType="textCapWords"
@@ -68,23 +68,24 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
-        android:layout_below="@+id/activity_main_usernameEditText"
+        android:layout_below="@+id/txtName"
         />
 
     <EditText
-        android:id="@+id/activity_main_passwordEditText"
+        android:id="@+id/txtEmail"
         android:layout_width="match_parent"
         android:layout_height="63dp"
-        android:layout_below="@+id/secTxt"
+        android:inputType="textCapWords"
+        android:hint="Username:"
         android:layout_centerInParent="true"
+        android:layout_below="@+id/secTxt"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:background="@drawable/rounded_edittext"
-        android:hint="Username:"
-        android:inputType="textCapWords"
         android:textColor="@color/black"
+        android:textSize="20sp"
         android:textColorHint="#757474"
-        android:textSize="20sp" />
+        android:background="@drawable/rounded_edittext"
+        />
 
     <TextView
         android:id="@+id/thirdTxt"
@@ -97,7 +98,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
-        android:layout_below="@+id/activity_main_passwordEditText"
+        android:layout_below="@+id/txtEmail"
         />
 
     <EditText
@@ -117,19 +118,20 @@
         />
 
     <android.widget.Button
-        android:id="@+id/activity_main_loginButton"
+        android:id="@+id/btnRegister"
+        android:layout_below="@+id/txtPwd"
         android:layout_width="match_parent"
         android:layout_height="63dp"
-        android:layout_below="@+id/txtPwd"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/custom_button"
-        android:shadowColor="@color/black"
         android:text="Register"
         android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:textStyle="bold"
         android:textSize="20dp"
-        android:textStyle="bold" />
+        android:shadowColor="@color/black"
+        android:background="@drawable/custom_button"
+        />
 
 
 
