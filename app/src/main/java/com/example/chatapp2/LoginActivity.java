@@ -47,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent( LoginActivity.this, ChatScreen.class);
+                startActivity(intent);
                 User u = new User(usernameTxt.getText().toString(), passwordTxt.getText().toString());
                 loginController.sendData(new ObjectWrapper(u, ConnectionType.LOGIN));
             }
