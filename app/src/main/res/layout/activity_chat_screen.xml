@@ -10,10 +10,9 @@
         android:text="Chat App"
         android:textSize="25sp"
         />
-    <TextView
-        android:id="@+id/idFriend"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/room_recyleview_id"
         android:layout_width="match_parent"
-        android:layout_height="100sp"
-        android:text="FriendList"/>
-
+        android:layout_height="wrap_content"
+    />
 </LinearLayout>

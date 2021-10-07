@@ -36,11 +36,10 @@ public class RegisterActivity extends AppCompatActivity {
     private void init() {
         loginController = LoginController.getInstance();
         loginController.setRegisterActivity(this);
-        firstNameTxt = findViewById(R.id.txtName);
-        usernameTxt = findViewById(R.id.txtEmail);
+        firstNameTxt = findViewById(R.id.activity_main_usernameEditText);
+        usernameTxt = findViewById(R.id.activity_main_passwordEditText);
         passwordTxt = findViewById(R.id.txtPwd);
-        registerBtn = findViewById(R.id.btnRegister);
-        loginBtn = findViewById(R.id.btnLogin);
+        registerBtn = findViewById(R.id.activity_main_loginButton);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,12 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
                 loginController.sendData(new ObjectWrapper(user, ConnectionType.REGISTER));
             }
         });
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
+
     }
 
     public void receiveData(ObjectWrapper data) {

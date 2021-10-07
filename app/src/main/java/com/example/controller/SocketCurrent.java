@@ -34,14 +34,14 @@ public class SocketCurrent {
     }
 
     public Socket getMySocket() {
-        if (mySocket == null) {
-            try {
-                mySocket = new Socket(ipAddress.getHost(), ipAddress.getPort());
-            }
-            catch ( Exception e ) {
-                e.printStackTrace();
-            }
-        }
+//        if (mySocket == null) {
+//            try {
+//                mySocket = new Socket(ipAddress.getHost(), ipAddress.getPort());
+//            }
+//            catch ( Exception e ) {
+//                e.printStackTrace();
+//            }
+//        }
         return mySocket;
     }
 

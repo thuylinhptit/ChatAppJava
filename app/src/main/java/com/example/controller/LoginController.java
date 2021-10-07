@@ -28,7 +28,6 @@ public class LoginController {
         }
 //        mySocket = SocketCurrent.instance.getMySocket();
         this.loginActivityFrm = loginActivityFrm;
-        myListening = new LoginListening();
     }
 
     public void openConnection() {
@@ -122,7 +121,7 @@ public class LoginController {
                         if (data.getChoice() == ConnectionType.REPLY_LOGIN) {
                             System.out.println("Reply_login");
                             User result = (User)data.getData();
-                            if (!result.equals(null)) {
+                            if (result != null) {
                                 SocketCurrent.instance.setClient(result);
                                 loginActivityFrm.changeScreenToMain();
                             } else {
