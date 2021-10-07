@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         usernameTxt = findViewById(R.id.txtEmail);
         passwordTxt = findViewById(R.id.txtPwd);
         registerBtn = findViewById(R.id.btnRegister);
-        loginBtn = findViewById(R.id.btnLogin);
+      //  loginBtn = findViewById(R.id.btnLogin);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,12 +52,12 @@ public class RegisterActivity extends AppCompatActivity {
                 loginController.sendData(new ObjectWrapper(user, ConnectionType.REGISTER));
             }
         });
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
+//        loginBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                login();
+//            }
+//        });
     }
 
     public void receiveData(ObjectWrapper data) {
