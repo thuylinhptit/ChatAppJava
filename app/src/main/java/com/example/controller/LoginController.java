@@ -124,10 +124,11 @@ public class LoginController {
                             if (result != null) {
                                 SocketCurrent.instance.setClient(result);
                                 loginActivityFrm.changeScreenToMain();
-
+                                isLoggin = false;
+                                return;
                                 // Login Successfull
-                                ObjectWrapper online = new ObjectWrapper(result, ConnectionType.ONLINE_INFORM);
-                                sendData(online);
+//                                ObjectWrapper online = new ObjectWrapper(result, ConnectionType.ONLINE_INFORM);
+//                                sendData(online);
                             } else {
                                 loginActivityFrm.showToast("Username/password not correct");
                             }

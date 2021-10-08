@@ -26,6 +26,7 @@ public class ChatScreen extends AppCompatActivity implements IClickRoom {
 
     private RecyclerView roomListViewRecylerView;
     private RoomAdapter roomAdapter;
+    private boolean canSendRequest = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +59,7 @@ public class ChatScreen extends AppCompatActivity implements IClickRoom {
     }
 
     private void changeIntent(int position) {
-        Intent myIntent = new Intent(this, TaiChatSceneActivity.class);
+        Intent myIntent = new Intent(ChatScreen.this, TaiChatSceneActivity.class);
         myIntent.putExtra("roomid", position);
         startActivity(myIntent);
     }
@@ -68,10 +69,13 @@ public class ChatScreen extends AppCompatActivity implements IClickRoom {
             @Override
             public void run() {
                 while (true) {
-                    HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETROOM));
-                    System.out.println("Send Update Room");
+                    if (canSendRequest) {
+                        HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETROOM));
+                        System.out.println("Send Update Room");
+                        canSendRequest = false;
+                    }
                     try {
-                        Thread.sleep(3000);
+                        Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -82,8 +86,26 @@ public class ChatScreen extends AppCompatActivity implements IClickRoom {
     }
 
     public void updateRoom(List<Room> listRoom) {
-        roomAdapter = new RoomAdapter(listRoom, getApplicationContext(), this);
-        if (roomListViewRecylerView != null)
-            roomListViewRecylerView.setAdapter(roomAdapter);
+
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                System.out.println("ListRoom: " + listRoom.size());
+                roomAdapter.setRoom(listRoom);
+                // Stuff that updates the UI
+
+            }
+        });
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//            }
+//        }).start();
+
+    }
+
+    public void setCanSendRequest(boolean b) {
+        this.canSendRequest = b;
     }
 }

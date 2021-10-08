@@ -61,6 +61,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewRoomHolder
         holder.countPeopleTxt.setText(countPeople);
     }
 
+
     @Override
     public int getItemCount() {
         return room.size();
@@ -72,6 +73,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewRoomHolder
 
     public void setRoom(List<Room> room) {
         this.room = room;
+        notifyDataSetChanged();
     }
 
     class ViewRoomHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -118,7 +120,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewRoomHolder
 
         @Override
         public void onClick(View v) {
-            onClickListener.onClickListener(getAdapterPosition());
+            onClickListener.onClickListener(getRoom().get(getAdapterPosition()).getId());
         }
     }
 }

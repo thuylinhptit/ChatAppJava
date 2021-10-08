@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.chatapp2.ChatScreen;
+import com.example.testTai.TaiChatSceneActivity;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import model.ConnectionType;
 import model.FriendRequest;
+import model.Message;
 import model.ObjectWrapper;
 import model.Room;
 import model.User;
@@ -26,6 +28,7 @@ public class HomeController {
             instance = this;
         }
         isRunning = true;
+        roomList = new ArrayList<>();
         listTaskRunning = new ArrayList<>();
         homeListening = new HomeListening();
         homeListening.start();
@@ -123,15 +126,27 @@ public class HomeController {
                                             }
                                             break;
                                         case REPLY_CHAT:
-
+                                            if (task.getData() instanceof TaiChatSceneActivity){
+                                                System.out.println("Update List Message");
+                                                List<Message> list = (List<Message>)data.getData();
+                                                TaiChatSceneActivity taiChatSceneActivity = (TaiChatSceneActivity) task.getData();
+                                                taiChatSceneActivity.updateUI(list);
+                                            }
                                             break;
                                         case REPLY_GETROOM:
-                                            List<Room> listRoom = (List<Room>) data.getData();
-                                            SocketCurrent.instance.getClient().setRoomList(listRoom);
+                                            roomList = (List<Room>) data.getData();
+                                            SocketCurrent.instance.getClient().setRoomList(roomList);
                                             //Update UI
-                                            ChatScreen chatScreenActivity = (ChatScreen) task.getData();
-                                            if (chatScreenActivity != null)
-                                                chatScreenActivity.updateRoom(listRoom);
+                                            if (task.getData() instanceof ChatScreen) {
+                                                ChatScreen chatScreenActivity = (ChatScreen) task.getData();
+                                                chatScreenActivity.updateRoom(roomList);
+                                                chatScreenActivity.setCanSendRequest(true);
+                                            }
+//                                            else if (task.getData() instanceof TaiChatSceneActivity){
+//                                                TaiChatSceneActivity taiChatSceneActivity = (TaiChatSceneActivity) task.getData();
+//                                                taiChatSceneActivity.updateUI(roomList);
+//                                            }
+
                                             break;
                                     }
                                 }

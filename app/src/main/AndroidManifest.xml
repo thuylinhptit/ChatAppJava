@@ -14,12 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp2">
-        <activity
-            android:name="com.example.testTai.TaiChatSceneActivity"
-            android:exported="true" />
-        <activity
-            android:name="com.example.testTai.RegisterActivity"
-            android:exported="true" />
+        <activity android:name="com.example.testTai.TaiChatSceneActivity"/>
+        <activity android:name="com.example.testTai.RegisterActivity" />
         <activity android:name=".ChatScreen" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SetProfile" />

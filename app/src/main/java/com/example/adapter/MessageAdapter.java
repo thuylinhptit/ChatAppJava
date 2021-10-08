@@ -28,6 +28,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         this.context = context;
     }
 
+    public List<Message> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(List<Message> messageList) {
+        this.messageList = messageList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
