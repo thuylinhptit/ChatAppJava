@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp2">
         <activity
+            android:name="com.example.testTai.TaiChatSceneActivity"
+            android:exported="true" />
+        <activity
             android:name="com.example.testTai.RegisterActivity"
             android:exported="true" />
         <activity android:name=".ChatScreen" />

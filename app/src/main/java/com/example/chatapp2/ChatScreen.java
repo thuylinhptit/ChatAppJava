@@ -4,26 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.adapter.RoomAdapter;
+import com.example.controller.HomeController;
 import com.example.controller.SocketCurrent;
+import com.example.interfaces.IClickRoom;
+import com.example.testTai.TaiChatSceneActivity;
 
+import java.util.List;
+
+import model.ConnectionType;
+import model.ObjectWrapper;
 import model.Room;
 import model.User;
 
-public class ChatScreen extends AppCompatActivity {
+public class ChatScreen extends AppCompatActivity implements IClickRoom {
 
     private RecyclerView roomListViewRecylerView;
-
+    private RoomAdapter roomAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
-
         init();
+        HomeController.getInstance().getListTaskRunning().add(new ObjectWrapper(this, ConnectionType.REPLY_GETROOM));
+        createThreadUpdateRoom();
+
     }
 
     private void init() {
@@ -32,7 +42,48 @@ public class ChatScreen extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         roomListViewRecylerView.setLayoutManager(layoutManager);
 
-        RoomAdapter roomAdapter = new RoomAdapter(SocketCurrent.instance.getClient().getRoomList(), getApplicationContext());
+        roomAdapter = new RoomAdapter(SocketCurrent.instance.getClient().getRoomList(), getApplicationContext(), this);
         roomListViewRecylerView.setAdapter(roomAdapter);
+
+    }
+
+    public void activeOnlineFriend(int userId) {
+        roomListViewRecylerView.getAdapter().notifyItemChanged(userId);
+    }
+
+    @Override
+    public void onClickListener(int position) {
+        System.out.println(position);
+        changeIntent(position);
+    }
+
+    private void changeIntent(int position) {
+        Intent myIntent = new Intent(this, TaiChatSceneActivity.class);
+        myIntent.putExtra("roomid", position);
+        startActivity(myIntent);
+    }
+
+    private void createThreadUpdateRoom() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETROOM));
+                    System.out.println("Send Update Room");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        thread.start();
+    }
+
+    public void updateRoom(List<Room> listRoom) {
+        roomAdapter = new RoomAdapter(listRoom, getApplicationContext(), this);
+        if (roomListViewRecylerView != null)
+            roomListViewRecylerView.setAdapter(roomAdapter);
     }
 }

@@ -35,6 +35,7 @@ public class HomeController {
         instance = null;
     }
 
+    public static HomeController getInstance() {return instance;}
     public boolean isRunning() {
         return isRunning;
     }
@@ -99,14 +100,41 @@ public class HomeController {
                         ObjectWrapper data = (ObjectWrapper) obj;
 
                         for (ObjectWrapper task : listTaskRunning) {
-                            switch (data.getChoice()) {
-                                case REPLY_FRIENDREQUEST:
-                                    FriendRequest friendRequest = (FriendRequest) data.getData();
-                                    if (friendRequest.getReceiver().getId() == SocketCurrent.instance.getClient().getId()) {
-                                        // Show Message
+                            if (task.getData() != null) {
+                                if (data.getChoice() == task.getChoice()) {
+                                    switch (task.getChoice()) {
+                                        case REPLY_FRIENDREQUEST:
+                                            FriendRequest friendRequest = (FriendRequest) data.getData();
+                                            if (friendRequest.getReceiver().getId() == SocketCurrent.instance.getClient().getId()) {
+                                                // Show Message
 
+                                            }
+                                            break;
+                                        case ONLINE_INFORM:
+                                            // Get User
+                                            User user = (User) data.getData();
+                                            // Check User is my friend?
+                                            if (SocketCurrent.instance.getClient().getFriendList().contains(user)) {
+                                                // this user is friend
+                                                // Update UI
+                                                ChatScreen chatScreenActivity = (ChatScreen) task.getData();
+                                                if (chatScreenActivity != null)
+                                                    chatScreenActivity.activeOnlineFriend(user.getId());
+                                            }
+                                            break;
+                                        case REPLY_CHAT:
+
+                                            break;
+                                        case REPLY_GETROOM:
+                                            List<Room> listRoom = (List<Room>) data.getData();
+                                            SocketCurrent.instance.getClient().setRoomList(listRoom);
+                                            //Update UI
+                                            ChatScreen chatScreenActivity = (ChatScreen) task.getData();
+                                            if (chatScreenActivity != null)
+                                                chatScreenActivity.updateRoom(listRoom);
+                                            break;
                                     }
-                                    break;
+                                }
                             }
                         }
                     }

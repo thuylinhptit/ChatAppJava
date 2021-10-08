@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.controller.HomeController;
 import com.example.controller.LoginController;
 import com.example.testTai.RegisterActivity;
 
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         this.runOnUiThread(new Runnable() {
             public void run() {
                 loginController.closeConnection();
+                new HomeController(); // Create Instance of HomeController
                 changeIntent();
             }
         });
