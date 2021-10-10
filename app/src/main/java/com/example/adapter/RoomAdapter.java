@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp2.R;
 import com.example.controller.SocketCurrent;
-import com.example.interfaces.IClickRoom;
+import com.example.interfaces.IClickItem;
 
 import java.util.List;
 
@@ -24,8 +24,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewRoomHolder
 
     private List<Room> room;
     private Context context;
-    private IClickRoom onClickRoomListener;
-    public RoomAdapter(List<Room> room, Context context, IClickRoom onClickRoom) {
+    private IClickItem onClickRoomListener;
+    public RoomAdapter(List<Room> room, Context context, IClickItem onClickRoom) {
         this.room = room;
         this.context = context;
         this.onClickRoomListener = onClickRoom;
@@ -42,21 +42,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewRoomHolder
     @Override
     public void onBindViewHolder(@NonNull ViewRoomHolder holder, int position) {
         Room roomCurrent = room.get(position);
-        String nameRoom = "";
+        String nameRoom = room.get(position).getName();
         String countPeople="";
-        if (roomCurrent.getUserList().size() == 2) {
-            if (SocketCurrent.instance.getClient().getId() == roomCurrent.getUserList().get(0).getId()) {
-                nameRoom = roomCurrent.getUserList().get(1).getFullName();
-            } else {
-                nameRoom = roomCurrent.getUserList().get(0).getFullName();
-            }
-        } else {
-            for (User u : roomCurrent.getUserList()) {
-                String[] name = u.getFullName().split(" ");
-                nameRoom += (name[name.length - 1] + ",");
-            }
-            countPeople = roomCurrent.getUserList().size() + " people";
-        }
+
         holder.roomNameTxt.setText(nameRoom);
         holder.countPeopleTxt.setText(countPeople);
     }
@@ -80,8 +68,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewRoomHolder
         private TextView roomNameTxt;
         private TextView countPeopleTxt;
         private ImageView avatarRoom;
-        private IClickRoom onClickListener;
-        public ViewRoomHolder(@NonNull View itemView, IClickRoom onClickRoom) {
+        private IClickItem onClickListener;
+        public ViewRoomHolder(@NonNull View itemView, IClickItem onClickRoom) {
             super(itemView);
             roomNameTxt = (TextView) itemView.findViewById(R.id.roomnameid);
             countPeopleTxt = (TextView) itemView.findViewById(R.id.peoplecountroomid);

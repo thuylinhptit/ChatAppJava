@@ -1,5 +1,5 @@
 package com.example.interfaces;
 
-public interface IClickRoom {
+public interface IClickItem {
     void onClickListener(int position);
 }

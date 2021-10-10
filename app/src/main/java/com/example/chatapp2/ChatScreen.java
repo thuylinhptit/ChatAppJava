@@ -6,39 +6,46 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.adapter.RoomAdapter;
 import com.example.controller.HomeController;
 import com.example.controller.SocketCurrent;
-import com.example.interfaces.IClickRoom;
+import com.example.interfaces.IClickItem;
 import com.example.testTai.TaiChatSceneActivity;
+import com.example.testTai.TaiFriendRequestActivtity;
+import com.example.testTai.TaiFriendScene;
 
 import java.util.List;
 
 import model.ConnectionType;
 import model.ObjectWrapper;
 import model.Room;
-import model.User;
 
-public class ChatScreen extends AppCompatActivity implements IClickRoom {
+public class ChatScreen extends AppCompatActivity implements IClickItem {
 
     private RecyclerView roomListViewRecylerView;
     private RoomAdapter roomAdapter;
+    private Button friendWatchbtn, friendRequestWatchBtn;
     private boolean canSendRequest = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
         init();
-        HomeController.getInstance().getListTaskRunning().add(new ObjectWrapper(this, ConnectionType.REPLY_GETROOM));
+        if (HomeController.getInstance() != null) {
+            HomeController.getInstance().setChatScreenActivity(this);
+            HomeController.getInstance().getListTaskRunning().add(new ObjectWrapper(this, ConnectionType.REPLY_GETROOM));
+        }
+//        HomeController.getInstance().getListTaskRunning().add(new ObjectWrapper(this, ConnectionType.REPLY_GETROOMFRIEND));
         createThreadUpdateRoom();
 
     }
 
     private void init() {
         roomListViewRecylerView = findViewById(R.id.room_recyleview_id);
+        friendWatchbtn = findViewById(R.id.home_friendbtn_id);
         roomListViewRecylerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         roomListViewRecylerView.setLayoutManager(layoutManager);
@@ -46,6 +53,22 @@ public class ChatScreen extends AppCompatActivity implements IClickRoom {
         roomAdapter = new RoomAdapter(SocketCurrent.instance.getClient().getRoomList(), getApplicationContext(), this);
         roomListViewRecylerView.setAdapter(roomAdapter);
 
+        friendWatchbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ChatScreen.this, TaiFriendScene.class);
+                startActivity(i);
+            }
+        });
+
+        friendRequestWatchBtn = findViewById(R.id.home_friendrequestbtn_id);
+        friendRequestWatchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ChatScreen.this, TaiFriendRequestActivtity.class);
+                startActivity(i);
+            }
+        });
     }
 
     public void activeOnlineFriend(int userId) {

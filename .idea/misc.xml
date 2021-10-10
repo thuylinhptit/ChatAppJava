@@ -11,9 +11,14 @@
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/activity_set_profile.xml" value="0.371875" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/activity_splash_screen.xml" value="0.371875" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/activity_tai_chat_scene.xml" value="0.33" />
+        <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/activity_tai_friend_request_activtity.xml" value="0.2734375" />
+        <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/activity_tai_friend_scene.xml" value="0.27447916666666666" />
+        <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/activity_tai_watch_profile.xml" value="0.2734375" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/row_roomitem.xml" value="0.20885416666666667" />
+        <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/tai_friendrequest_row.xml" value="0.25" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/tai_message_item_left.xml" value="0.5" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/tai_message_item_right.xml" value="0.371875" />
+        <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/tai_row_friend.xml" value="0.20885416666666667" />
       </map>
     </option>
   </component>
