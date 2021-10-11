@@ -9,17 +9,24 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
+        android:background="@drawable/background2"
         android:layout_height="70dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Friend Request"
+            android:text="Friend request"
+            android:textSize="27dp"
+            android:gravity="center_vertical"
             android:textColor="@color/white"
-            android:textSize="40dp"/>
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/chat_name_room"
+            />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friend_request_listview_id"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent"/>
 </LinearLayout>
