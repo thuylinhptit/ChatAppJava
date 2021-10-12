@@ -16,26 +16,85 @@
             android:text="PROFILE"
             android:textSize="40dp"
             android:textColor="@color/white"
-            android:layout_gravity="" />
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="40dp"
-        android:text="Name"
-        android:id="@+id/profile_fullname_id"/>
-    <TextView
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Full Name:"
+            android:textSize="30dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textSize="30dp"
+            android:text="Name"
+            android:id="@+id/profile_fullname_id"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="40dp"
-        android:text="Name"
-        android:id="@+id/profile_username_id"/>
-    <TextView
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Username:"
+            android:textSize="30dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textSize="30dp"
+            android:text="Name"
+            android:id="@+id/profile_username_id"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="40dp"
-        android:text="Name"
-        android:id="@+id/profile_address_id"/>
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Address:"
+            android:textSize="30dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textSize="30dp"
+            android:text="Name"
+            android:id="@+id/profile_address_id"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"/>
+
+
+    </LinearLayout>
+    <ImageButton
+        android:id="@+id/profile_logout_btn"
+        android:layout_marginTop="100dp"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+
+        android:src="@drawable/ic_btn_log_out_profile">
+    </ImageButton>
+
 
 </LinearLayout>

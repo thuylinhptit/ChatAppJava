@@ -125,10 +125,11 @@ public class LoginController {
                                 SocketCurrent.instance.setClient(result);
                                 loginActivityFrm.changeScreenToMain();
                                 isLoggin = false;
-                                return;
+                                loginActivityFrm.showToast("Login Successful");
                                 // Login Successfull
-//                                ObjectWrapper online = new ObjectWrapper(result, ConnectionType.ONLINE_INFORM);
+//                                ObjectWrapper online = new ObjectWrapper(result.getId(), ConnectionType.ONLINE_INFORM);
 //                                sendData(online);
+                                return;
                             } else {
                                 loginActivityFrm.showToast("Username/password not correct");
                             }
@@ -136,7 +137,7 @@ public class LoginController {
                             String result = (String)data.getData();
                             if (result.equals("ok")) {
                                 registerActivity.login();
-                                registerActivity.showToast("Successfull");
+                                registerActivity.showToast("Successful");
                             } else {
                                 loginActivityFrm.showToast("Error connect server :(");
                             }

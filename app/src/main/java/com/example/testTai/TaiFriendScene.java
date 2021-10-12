@@ -24,6 +24,7 @@ public class TaiFriendScene extends AppCompatActivity implements IClickItem {
     FriendAdapter friendFriendAdapter;
     RecyclerView friendRecyclerView;
     TextView nameUserTxt;
+    public boolean canRequest = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,8 @@ public class TaiFriendScene extends AppCompatActivity implements IClickItem {
         HomeController.getInstance().getListTaskRunning().add(new ObjectWrapper(this, ConnectionType.REPLY_GETROOMFRIEND));
         HomeController.getInstance().getListTaskRunning().add(new ObjectWrapper(this, ConnectionType.REPLY_ADDFRIEND));
         HomeController.getInstance().getListTaskRunning().add(new ObjectWrapper(this, ConnectionType.REPLY_DECLINEFRIEND));
+        HomeController.getInstance().getListTaskRunning().add(new ObjectWrapper(this, ConnectionType.REPLY_GETFRIEND));
+        createThreadUpdateFriend();
     }
 
     private void init() {
@@ -64,6 +67,22 @@ public class TaiFriendScene extends AppCompatActivity implements IClickItem {
         finish();
     }
 
+    private void createThreadUpdateFriend() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (HomeController.getInstance().isRunning()) {
+                    if (canRequest)
+                        HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIEND));
+                    try {
+                        Thread.sleep(3742);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
     public void gotoChat(Room roomid) {
         runOnUiThread(new Runnable() {
             @Override
@@ -88,5 +107,18 @@ public class TaiFriendScene extends AppCompatActivity implements IClickItem {
                 friendFriendAdapter.setFriendList(SocketCurrent.instance.getClient().getFriendList());
             }
         });
+    }
+    public void updateFriendOnlineOffline(int userId, boolean online) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                friendFriendAdapter.changeStatus(userId, online);
+            }
+        });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

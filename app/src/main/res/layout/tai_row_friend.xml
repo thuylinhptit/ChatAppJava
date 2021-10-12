@@ -24,4 +24,11 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_gravity="center"/>
+    <ImageView
+        android:id="@+id/friend_row_online_id"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:background="#68ce39"
+        android:layout_margin="20dp"
+        />
 </LinearLayout>

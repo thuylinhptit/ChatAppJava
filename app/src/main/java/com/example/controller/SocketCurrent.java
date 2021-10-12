@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.io.IOException;
 import java.net.Socket;
 
 import model.IPAddress;
@@ -19,6 +20,17 @@ public class SocketCurrent {
         this.client = client;
     }
 
+    public void logOut() {
+        instance = null;
+        try {
+            mySocket.close();
+            System.out.println("Log Out!!");
+            client = null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     public SocketCurrent(IPAddress ip) {
         if (instance == null) {
             instance = this;

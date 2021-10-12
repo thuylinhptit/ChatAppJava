@@ -1,6 +1,7 @@
 package com.example.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,12 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
     @Override
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
         holder.nameFriendTxt.setText(friendList.get(position).getFullName());
+        boolean isOnline=friendList.get(position).getStatus() == 1 ? true : false;
+        if (isOnline) {
+            holder.iconOnlineImg.setBackgroundColor(Color.parseColor("#68ce37"));
+        } else {
+            holder.iconOnlineImg.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
     }
 
     @Override
@@ -65,14 +72,23 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         return friendList.size();
     }
 
+    public void changeStatus(int userId, boolean online) {
+
+
+        notifyItemChanged(0);
+    }
+
     public class FriendViewHolder extends RecyclerView.ViewHolder {
         private ImageView avatarFriendImg;
         private TextView nameFriendTxt;
         private Button btn;
+        private ImageView iconOnlineImg;
         public FriendViewHolder(@NonNull View itemView, IClickItem event) {
             super(itemView);
             nameFriendTxt = (TextView)itemView.findViewById(R.id.friend_row_name);
             btn = (Button)itemView.findViewById(R.id.friend_row_btnchat_id);
+            iconOnlineImg = (ImageView)itemView.findViewById(R.id.friend_row_online_id);
+
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -61,7 +61,15 @@ public class TaiChatSceneActivity extends AppCompatActivity {
         messageTxt = findViewById(R.id.chat_text_id);
         btnSend = (Button)findViewById(R.id.chat_btn_send_id);
 
-        chatRoomNameTxt.setText("Chat");
+        String nameroom = room.getName();
+        if (room.getUserList().size() == 2) {
+            if (room.getUserList().get(0).getId() == SocketCurrent.instance.getClient().getId()) {
+                nameroom = room.getUserList().get(1).getFullName();
+            } else {
+                nameroom = room.getUserList().get(0).getFullName();
+            }
+        }
+        chatRoomNameTxt.setText(nameroom);
 
         messageRecyclerView = findViewById(R.id.message_adapter_id);
 
@@ -96,7 +104,7 @@ public class TaiChatSceneActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
+                while (HomeController.getInstance().isRunning()) {
 
                     try {
                         Thread.sleep(1000);
@@ -122,5 +130,11 @@ public class TaiChatSceneActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

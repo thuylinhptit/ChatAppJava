@@ -44,7 +44,16 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewRoomHolder
         Room roomCurrent = room.get(position);
         String nameRoom = room.get(position).getName();
         String countPeople="";
-
+        if (roomCurrent.getUserList().size() == 2) {
+            int idC = SocketCurrent.instance.getClient().getId();
+            if (idC == roomCurrent.getUserList().get(0).getId()) {
+                nameRoom = roomCurrent.getUserList().get(1).getFullName();
+            } else {
+                nameRoom = roomCurrent.getUserList().get(0).getFullName();
+            }
+        } else {
+            countPeople = roomCurrent.getUserList().size() + " people";
+        }
         holder.roomNameTxt.setText(nameRoom);
         holder.countPeopleTxt.setText(countPeople);
     }
