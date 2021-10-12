@@ -14,9 +14,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="Hello"
+            android:text="Hello, I am Tai"
+            android:textColor="@color/white"
             android:padding="8dp"
-            android:background="#879df8"
+            android:textSize="18dp"
+            android:background="@drawable/mess_custom_send"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true" />
     </RelativeLayout>

@@ -87,10 +87,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewRoomHolder
             itemView.setOnClickListener(this);
 
         }
-
-
-
-
         public TextView getRoomNameTxt() {
             return roomNameTxt;
         }
