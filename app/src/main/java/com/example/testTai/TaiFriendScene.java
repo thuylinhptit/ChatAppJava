@@ -39,7 +39,7 @@ public class TaiFriendScene extends AppCompatActivity implements IClickItem {
 
     private void init() {
         friendRecyclerView = findViewById(R.id.friend_list_id);
-        nameUserTxt = findViewById(R.id.friend_name_user_id);
+//        nameUserTxt = findViewById(R.id.friend_name_user_id);
         friendFriendAdapter = new FriendAdapter(SocketCurrent.instance.getClient().getFriendList(), getApplicationContext(), this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         friendRecyclerView.setLayoutManager(layoutManager);

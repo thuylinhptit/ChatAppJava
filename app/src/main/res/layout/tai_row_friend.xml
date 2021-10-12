@@ -50,6 +50,14 @@
             android:layout_marginTop="15dp"
             android:background="@color/white"
             android:src="@drawable/ic_baseline_chat_bubble_24" />
+        <ImageView
+            android:id="@+id/friend_row_online_id"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="#ff0000"
+            android:layout_gravity="center"
+
+            />
     </LinearLayout>
     <ImageView
         android:layout_width="wrap_content"

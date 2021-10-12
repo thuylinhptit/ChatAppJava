@@ -55,6 +55,10 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
 
     @Override
     public void onBindViewHolder(@NonNull SearchFriendAdapterViewHolder holder, int position) {
+        if (list.get(position).getId() == SocketCurrent.instance.getClient().getId()) {
+            holder.itemView.setVisibility(View.INVISIBLE);
+            return;
+        }
         holder.sendFriendRqBtn.setVisibility(View.VISIBLE);
         holder.acceptFriendBtn.setVisibility(View.GONE);
         holder.declineFriendBtn.setVisibility(View.GONE);

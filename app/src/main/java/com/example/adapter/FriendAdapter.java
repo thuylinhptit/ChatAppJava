@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -81,12 +82,12 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
     public class FriendViewHolder extends RecyclerView.ViewHolder {
         private ImageView avatarFriendImg;
         private TextView nameFriendTxt;
-        private Button btn;
+        private ImageButton btn;
         private ImageView iconOnlineImg;
         public FriendViewHolder(@NonNull View itemView, IClickItem event) {
             super(itemView);
             nameFriendTxt = (TextView)itemView.findViewById(R.id.friend_row_name);
-            btn = (Button)itemView.findViewById(R.id.friend_row_btnchat_id);
+            btn = (ImageButton)itemView.findViewById(R.id.friend_row_btnchat_id);
             iconOnlineImg = (ImageView)itemView.findViewById(R.id.friend_row_online_id);
 
             btn.setOnClickListener(new View.OnClickListener() {

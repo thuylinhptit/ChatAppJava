@@ -33,7 +33,7 @@ public class TaiWatchProfile extends AppCompatActivity {
         fullname = findViewById(R.id.profile_fullname_id);
         address = findViewById(R.id.profile_address_id);
         username = findViewById(R.id.profile_username_id);
-        logoutBtn = findViewById(R.id.profile_logout_btn);
+//        logoutBtn = findViewById(R.id.profile_logout_btn);
         Intent i = getIntent();
         User u = (User)i.getSerializableExtra("user");
         if (u != null) {
@@ -42,20 +42,20 @@ public class TaiWatchProfile extends AppCompatActivity {
             username.setText(u.getUsername());
         }
 
-        if (u.getId() != SocketCurrent.instance.getClient().getId()) {
-            logoutBtn.setVisibility(View.GONE);
-        }else {
-            logoutBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(TaiWatchProfile.this, SplashScreen.class);
-                    HomeController.getInstance().setRunning(false);
-                    SocketCurrent.instance.logOut();
-                    startActivity(i);
-                    finish();
-                }
-            });
-        }
+//        if (u.getId() != SocketCurrent.instance.getClient().getId()) {
+//            logoutBtn.setVisibility(View.GONE);
+//        }else {
+//            logoutBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent i = new Intent(TaiWatchProfile.this, SplashScreen.class);
+//                    HomeController.getInstance().setRunning(false);
+//                    SocketCurrent.instance.logOut();
+//                    startActivity(i);
+//                    finish();
+//                }
+//            });
+//        }
 
     }
     @Override
