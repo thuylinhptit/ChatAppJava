@@ -19,6 +19,7 @@
             android:layout_width="150dp"
             android:layout_height="60dp"
             android:text="Name Friend"
+            android:textColor="@color/black"
             android:layout_gravity="center"
             android:textSize="20dp"
             />

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.example.testTai.TaiSearchUserActivity">
 
     <LinearLayout
@@ -15,17 +16,21 @@
             android:id="@+id/search_name_friend_id"
             android:layout_width="300dp"
             android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:textColorHint="#7C7B7B"
             android:hint="Input name here"/>
         <ImageButton
             android:id="@+id/search_friend_btn_id"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/ic_btn_search_friend"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_baseline_search_24"
             />
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_list_friend_id"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent"/>
 
 </LinearLayout>

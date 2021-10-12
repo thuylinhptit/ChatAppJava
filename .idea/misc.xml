@@ -6,6 +6,8 @@
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/drawable-anydpi/ic_btn_log_out_profile.xml" value="0.24427083333333333" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/drawable-anydpi/ic_btn_profile.xml" value="0.225" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/drawable-anydpi/ic_btn_search_friend.xml" value="0.225" />
+        <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/drawable/icon_onl.xml" value="0.3880208333333333" />
+        <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/drawable/listfr_icon.xml" value="0.3880208333333333" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/activity_authentication.xml" value="0.371875" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/activity_chat_screen.xml" value="0.371875" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/activity_login.xml" value="0.20520833333333333" />
@@ -23,7 +25,7 @@
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/tai_friendrequest_row.xml" value="0.25" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/tai_message_item_left.xml" value="0.5" />
         <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/tai_message_item_right.xml" value="0.371875" />
-        <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/tai_row_friend.xml" value="0.25" />
+        <entry key="..\:/NguyenDinhTai/Hoc_Tap/NetworkProgram/ChatAppJava/app/src/main/res/layout/tai_row_friend.xml" value="0.5" />
       </map>
     </option>
   </component>

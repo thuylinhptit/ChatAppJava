@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/friend_row_name"
-            android:layout_width="230dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:translationY="15dp"
             android:paddingLeft="10dp"
@@ -52,11 +52,12 @@
             android:src="@drawable/ic_baseline_chat_bubble_24" />
         <ImageView
             android:id="@+id/friend_row_online_id"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:background="#ff0000"
-            android:layout_gravity="center"
-
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/icon_onl"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
             />
     </LinearLayout>
     <ImageView

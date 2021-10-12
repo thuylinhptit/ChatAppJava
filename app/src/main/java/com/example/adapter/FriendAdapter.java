@@ -62,9 +62,9 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         holder.nameFriendTxt.setText(friendList.get(position).getFullName());
         boolean isOnline=friendList.get(position).getStatus() == 1 ? true : false;
         if (isOnline) {
-            holder.iconOnlineImg.setBackgroundColor(Color.parseColor("#68ce37"));
+            holder.iconOnlineImg.setVisibility(View.VISIBLE);
         } else {
-            holder.iconOnlineImg.setBackgroundColor(Color.parseColor("#ffffff"));
+            holder.iconOnlineImg.setVisibility(View.INVISIBLE);
         }
     }
 
