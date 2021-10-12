@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.adapter.MessageAdapter;
@@ -31,7 +32,7 @@ import model.User;
 public class TaiChatSceneActivity extends AppCompatActivity {
     TextView chatRoomNameTxt;
     EditText messageTxt;
-    Button btnSend;
+    ImageButton btnSend;
     MessageAdapter messageAdapter;
     RecyclerView messageRecyclerView;
     private int roomId = 0;
@@ -59,7 +60,7 @@ public class TaiChatSceneActivity extends AppCompatActivity {
         }
         chatRoomNameTxt = findViewById(R.id.chat_name_room);
         messageTxt = findViewById(R.id.chat_text_id);
-        btnSend = (Button)findViewById(R.id.chat_btn_send_id);
+        btnSend = (ImageButton) findViewById(R.id.chat_btn_send_id);
 
         chatRoomNameTxt.setText("Chat");
 

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.adapter.RoomAdapter;
 import com.example.controller.HomeController;
@@ -27,7 +28,7 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
 
     private RecyclerView roomListViewRecylerView;
     private RoomAdapter roomAdapter;
-    private Button friendWatchbtn, friendRequestWatchBtn;
+    private ImageButton friendWatchbtn, friendRequestWatchBtn;
     private boolean canSendRequest = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
