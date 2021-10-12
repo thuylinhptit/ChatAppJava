@@ -113,24 +113,10 @@ public class HomeController {
                                             case REPLY_FRIENDREQUEST:
                                                 FriendRequest friendRequest = (FriendRequest) data.getData();
                                                 if (friendRequest.getReceiver().getId() == SocketCurrent.instance.getClient().getId()) {
-                                                    // Show Message
-//                                                if (task.getData() instanceof TaiFriendRequestActivtity) {
-//                                                    ((TaiFriendRequestActivtity) task.getData()).updateUIFriendRequest();
-//                                                }
+
                                                 }
                                                 break;
                                             case ONLINE_INFORM:
-                                                // Get User
-//                                                int userId = (int) data.getData();
-//                                                // Check User is my friend?
-//                                                if (task.getData() instanceof TaiFriendScene) {
-//                                                    for (User u : SocketCurrent.instance.getClient().getFriendList()) {
-//                                                        if (u.getId() == userId) {
-//                                                            ((TaiFriendScene)task.getData()).updateFriendOnlineOffline(userId, true);
-//                                                            break;
-//                                                        }
-//                                                    }
-//                                                }
                                                 break;
                                             case REPLY_CHAT:
                                                 if (task.getData() instanceof TaiChatSceneActivity) {
@@ -149,10 +135,7 @@ public class HomeController {
                                                     chatScreenActivity.updateRoom(roomList);
                                                     chatScreenActivity.setCanSendRequest(true);
                                                 }
-//                                            else if (task.getData() instanceof TaiChatSceneActivity){
-//                                                TaiChatSceneActivity taiChatSceneActivity = (TaiChatSceneActivity) task.getData();
-//                                                taiChatSceneActivity.updateUI(roomList);
-//                                            }
+
 
                                                 break;
 
@@ -169,33 +152,9 @@ public class HomeController {
                                                 break;
                                             case REPLY_ADDFRIEND:
 
-//                                            List<Object> listFriend = (List<Object>) (data.getData());
-////                                            System.out.println((List<User>)listFriend.get(1));
-//                                            if ((int)(listFriend.get(0)) == SocketCurrent.instance.getClient().getId()) {
-//                                                // Client nhan la th nay
-//                                                Object ob = listFriend.get(1);
-//                                                List<User> listF = (List<User>)ob;
-//                                                System.out.println(listFriend.get(1));
-//                                                System.out.println(ob);
-//                                                SocketCurrent.instance.getClient().setFriendList(listF);
-//                                                if (task.getData() instanceof TaiFriendScene) {
-//                                                    ((TaiFriendScene)task.getData()).updateFriendList();
-//                                                } else if (task.getData() instanceof TaiFriendRequestActivtity) {
-//
-//                                                }
-//                                            }
                                                 break;
                                             case REPLY_DECLINEFRIEND:
-//                                            List<Object> listFriend1 = (List<Object>) (data.getData());
-//                                            if ((int)(listFriend1.get(0)) == SocketCurrent.instance.getClient().getId()) {
-//                                                // Client nhan la th nay
-//                                                Object ob = listFriend1.get(1);
-//                                                List<User> listF = (List<User>)ob;
-//                                                SocketCurrent.instance.getClient().setFriendList(listF);
-//                                                if (task.getData() instanceof TaiFriendRequestActivtity) {
-//
-//                                                }
-//                                            }
+
                                                 break;
                                             case REPLY_GETFRIENDREQUEST:
                                                 List<FriendRequest> list = (List<FriendRequest>) data.getData();
