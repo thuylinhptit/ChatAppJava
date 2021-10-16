@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+        <EditText
+            android:id="@+id/create_gr_user_name_id"
+            android:layout_margin="20dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"/>
+        <ImageButton
+            android:id="@+id/create_gr_btn_id"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/ic_btn_search_friend"
+            android:backgroundTint="#000fff"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/create_gr_listview"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/create_gr_accept_id"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_margin="30dp"
+            android:text="ACCEPT"
+            />
+        <Button
+            android:id="@+id/create_gr_cancel_id"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_margin="30dp"
+            android:text="CANCEL"
+            />
+    </LinearLayout>
+
+</LinearLayout>

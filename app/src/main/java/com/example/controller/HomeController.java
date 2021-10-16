@@ -180,6 +180,10 @@ public class HomeController {
                                                     ((TaiSearchUserActivity)task.getData()).updateSearchView(listS);
                                                     System.out.println("Update View Search");
                                                 }
+                                                else if (task.getData() instanceof ChatScreen) {
+                                                    ((ChatScreen)task.getData()).updateSearchUserToCreateGroup(listS);
+                                                    System.out.println("Update view search in main activity");
+                                                }
                                                 break;
                                         }
                                     }
