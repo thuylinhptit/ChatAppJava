@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp2.R;
@@ -56,7 +57,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         if (getItemViewType(position) == LEFT) {
-//            holder.authorNameTxt.setText(messageList.get(position).getAuthor().getFullName());
+            if (position > 0) {
+                if (getItemViewType(position - 1) == LEFT) {
+                    if (messageList.get(position-1).getAuthor().getId() == messageList.get(position-1).getAuthor().getId()) {
+                        holder.cardView.setVisibility(View.GONE);
+                    } else {
+                        holder.cardView.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+            holder.authorNameTxt.setText(messageList.get(position).getAuthor().getFullName());
             holder.messageTxt.setText(messageList.get(position).getContent());
         } else {
             holder.messageTxt.setText(messageList.get(position).getContent());
@@ -81,9 +91,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         private TextView messageTxt;
         private TextView authorNameTxt;
         private ImageView avatarImg;
+        private CardView cardView;
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            cardView = itemView.findViewById(R.id.getImage);
+            authorNameTxt = itemView.findViewById(R.id.message_author_name_id);
             messageTxt = (TextView) itemView.findViewById(R.id.message_content_id);
             avatarImg = (ImageView) itemView.findViewById(R.id.message_avatar_id);
         }

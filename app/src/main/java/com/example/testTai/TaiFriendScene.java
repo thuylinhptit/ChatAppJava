@@ -71,7 +71,7 @@ public class TaiFriendScene extends AppCompatActivity implements IClickItem {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (HomeController.getInstance().isRunning()) {
+                while (HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
                     if (canRequest)
                         HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIEND));
                     try {

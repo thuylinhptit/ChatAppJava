@@ -77,7 +77,7 @@ public class TaiFriendRequestActivtity extends AppCompatActivity implements ICli
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(HomeController.getInstance().isRunning()) {
+                while(HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
                     HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIENDREQUEST));
                     System.out.println("Send Request get all friendRequest");
                     try {

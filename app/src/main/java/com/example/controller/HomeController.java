@@ -91,6 +91,13 @@ public class HomeController {
         }
 
     }
+
+    public void logOut() {
+        isRunning = false;
+        instance = null;
+        homeListening.interrupt();
+    }
+
     class HomeListening extends Thread {
         public HomeListening() {
             super();
@@ -99,7 +106,7 @@ public class HomeController {
         @Override
         public void run() {
             try {
-                while (isRunning) {
+                while (isRunning && HomeController.getInstance() != null && SocketCurrent.instance != null) {
                     ObjectInputStream ois = new ObjectInputStream(SocketCurrent.instance.getMySocket().getInputStream());
                     {
                         Object obj = ois.readObject();
