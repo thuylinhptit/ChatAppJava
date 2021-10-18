@@ -105,7 +105,7 @@ public class TaiChatSceneActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (HomeController.getInstance().isRunning()) {
+                while (HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
 
                     try {
                         Thread.sleep(1000);

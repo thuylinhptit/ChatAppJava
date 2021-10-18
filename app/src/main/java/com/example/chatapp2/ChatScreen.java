@@ -112,6 +112,7 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
     }
     private Dialog dialog;
     private RecyclerView listUserInSearch;
+    UserCreateGroupAdapter userCreateGroupAdapter;
     private void showCustomDialogAddUserCreateGroup() {
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -126,7 +127,7 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
         EditText fullnamesearch = dialog.findViewById(R.id.create_gr_user_name_id);
 
         listUserInSearch = dialog.findViewById(R.id.create_gr_listview);
-        UserCreateGroupAdapter userCreateGroupAdapter = new UserCreateGroupAdapter(SocketCurrent.instance.getClient().getFriendList(), this);
+        userCreateGroupAdapter = new UserCreateGroupAdapter(SocketCurrent.instance.getClient().getFriendList(), this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         listUserInSearch.setLayoutManager(layoutManager);
         listUserInSearch.setAdapter(userCreateGroupAdapter);
@@ -136,13 +137,13 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
             public void onClick(View v) {
                 List<User> choosed = userCreateGroupAdapter.listChoosedUser();
                 choosed.add(SocketCurrent.instance.getClient());
-                if (userCreateGroupAdapter.listChoosedUser().size() > 2) {
-                    HomeController.getInstance().sendData(new ObjectWrapper(userCreateGroupAdapter.listChoosedUser(), ConnectionType.CREATEROOM));
+                if (choosed.size() > 2) {
+                    HomeController.getInstance().sendData(new ObjectWrapper(choosed, ConnectionType.CREATEROOM));
                     dialog.dismiss();
                     dialog = null;
                     System.out.println("Dispose");
                 }
-
+                System.out.println("Size: " + choosed.size());
             }
         });
 
@@ -173,8 +174,7 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                UserCreateGroupAdapter userCreateGroupAdapter = new UserCreateGroupAdapter(users, ChatScreen.this);
-                listUserInSearch.setAdapter(userCreateGroupAdapter);
+                userCreateGroupAdapter.setListUser(users);
             }
         });
     }
@@ -199,7 +199,7 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
+                while (HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
                     if (canSendRequest) {
                         HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETROOM));
                         System.out.println("Send Update Room");

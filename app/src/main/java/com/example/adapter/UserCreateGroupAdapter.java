@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp2.R;
+import com.example.controller.SocketCurrent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,10 @@ public class UserCreateGroupAdapter extends RecyclerView.Adapter<UserCreateGroup
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
+        if (listUser.get(position).getId() == SocketCurrent.instance.getClient().getId()) {
+            holder.itemView.setVisibility(View.GONE);
+            return;
+        }
         if (position < listUser.size()) {
             holder.fullName.setText(listUser.get(position).getFullName());
         }
@@ -84,7 +89,12 @@ public class UserCreateGroupAdapter extends RecyclerView.Adapter<UserCreateGroup
                     if (checkbox.isChecked()) {
                         choose.add(listUser.get(getAdapterPosition()));
                     } else {
-                        choose.remove(getAdapterPosition());
+                        for (User u : choose) {
+                            if (listUser.get(getAdapterPosition()).getId() == u.getId()) {
+                                choose.remove(u);
+                                break;
+                            }
+                        }
                     }
                 }
             });
