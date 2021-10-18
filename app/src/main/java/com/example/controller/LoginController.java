@@ -126,9 +126,6 @@ public class LoginController {
                                 loginActivityFrm.changeScreenToMain();
                                 isLoggin = false;
                                 loginActivityFrm.showToast("Login Successful");
-                                // Login Successfull
-//                                ObjectWrapper online = new ObjectWrapper(result.getId(), ConnectionType.ONLINE_INFORM);
-//                                sendData(online);
                                 return;
                             } else {
                                 loginActivityFrm.showToast("Username/password not correct");

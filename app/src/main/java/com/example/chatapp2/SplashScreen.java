@@ -25,7 +25,7 @@ public class SplashScreen extends AppCompatActivity {
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        new SocketCurrent(new IPAddress("192.168.1.111", 9086));
+        new SocketCurrent(new IPAddress("192.168.1.63", 9086));
 
         new Handler().postDelayed(new Runnable() {
             @Override
