@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.example.controller.HomeController;
 import com.example.controller.SocketCurrent;
+import com.example.testTai.TaiFriendRequestActivtity;
+import com.example.testTai.TaiWatchProfile;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import model.ConnectionType;
@@ -25,7 +27,6 @@ public class SetProfile extends AppCompatActivity {
     ImageButton imageButton;
     Button edit_accept, edit_decline;
     Uri uri;
-    TextView name;
     EditText fullname, address, username, mail;
     public static final int IMAGE_CODE = 1;
 
@@ -39,7 +40,7 @@ public class SetProfile extends AppCompatActivity {
         username = findViewById(R.id.profile_username_id);
         edit_decline = findViewById(R.id.profile_edit_decline_btn);
         edit_accept = findViewById(R.id.profile_edit_accept_btn);
-        name = findViewById(R.id.textFullName);
+
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,12 +55,14 @@ public class SetProfile extends AppCompatActivity {
                 User u = SocketCurrent.instance.getClient();
                 u.setFullName(fullname.getText().toString());
                 u.setUsername(username.getText().toString());
-                name.setText(fullname.getText().toString());
                 SocketCurrent.instance.setClient(u);
 
                 ObjectWrapper objectWrapper = new ObjectWrapper(u, ConnectionType.EDITPROFILE);
                 HomeController.getInstance().sendData(objectWrapper);
                 System.out.println("Send Request Edit Profile");
+                Intent i = new Intent(SetProfile.this, TaiWatchProfile.class);
+
+                startActivity(i);
             }
         });
 
@@ -69,6 +72,9 @@ public class SetProfile extends AppCompatActivity {
                 User u = SocketCurrent.instance.getClient();
                 fullname.setText(u.getFullName());
                 username.setText(u.getUsername());
+                Intent i = new Intent(SetProfile.this, TaiWatchProfile.class);
+
+                startActivity(i);
 
             }
         });

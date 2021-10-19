@@ -29,6 +29,7 @@ public class TaiWatchProfile extends AppCompatActivity {
 
     Button  editProfile;
     LinearLayout groupedit;
+    TextView name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +40,9 @@ public class TaiWatchProfile extends AppCompatActivity {
 
     private void init() {
         editProfile = findViewById(R.id.profile_edit_btn);
+        name = findViewById(R.id.textFullName);
         Intent i = getIntent();
-        User u = (User)i.getSerializableExtra("user");
+        User u = SocketCurrent.instance.getClient();
 
         editProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -49,8 +51,7 @@ public class TaiWatchProfile extends AppCompatActivity {
                     startActivity(i);
                 }
             });
-
-
+        name.setText(u.getFullName());
         }
 
 
