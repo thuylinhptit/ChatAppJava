@@ -57,9 +57,13 @@ public class TaiWatchProfile extends AppCompatActivity {
             name.setText(u.getFullName());
             if (u.getId() == SocketCurrent.instance.getClient().getId()) {
                 editProfile.setVisibility(View.VISIBLE);
-                avatar.setImageBitmap(HomeController.getInstance().getAvatarImg());
+                if (HomeController.getInstance().getAvatarImg() == null) {
+                    avatar.setImageResource(R.drawable.user);
+                } else
+                    avatar.setImageBitmap(HomeController.getInstance().getAvatarImg());
             } else {
                 editProfile.setVisibility(View.GONE);
+                avatar.setImageResource(R.drawable.user);
             }
         } else {
             editProfile.setVisibility(View.VISIBLE);
