@@ -7,169 +7,118 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.controller.HomeController;
-import com.example.controller.SocketCurrent;
-import com.example.interfaces.IClickItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.chatapp2.R;
+import com.example.controller.HomeController;
+import com.example.interfaces.IClickItem;
+
 
 import java.util.List;
 
 import model.ConnectionType;
 import model.FriendRequest;
 import model.ObjectWrapper;
-import model.User;
 
-public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdapter.SearchFriendAdapterViewHolder> {
-    List<User> list;
-    Context context;
-    IClickItem onClick;
+public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdapter.FriendRequestViewHolder> {
+    private List<FriendRequest> friendRequestList;
+    private Context context;
+    private IClickItem onClick;
 
-    public FriendRequestAdapter(List<User> list, Context context, IClickItem onClick) {
-        this.list = list;
+    public FriendRequestAdapter(List<FriendRequest> friendRequestList, Context context, IClickItem onClick) {
+        this.friendRequestList = friendRequestList;
         this.context = context;
         this.onClick = onClick;
     }
 
-
-    public List<User> getList() {
-        return list;
+    public List<FriendRequest> getFriendRequestList() {
+        return friendRequestList;
     }
 
-    public void setList(List<User> list) {
-        this.list = list;
+    public void setFriendRequestList(List<FriendRequest> friendRequestList) {
+        this.friendRequestList = friendRequestList;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public SearchFriendAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FriendRequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(com.example.chatapp2.R.layout.tai_friend_search_row,parent,false);
-        return new SearchFriendAdapterViewHolder(itemView, onClick);
+        // Change layout room_roomitem to friendrequest_friendrequestitem layout
+        View itemView = layoutInflater.inflate(R.layout.tai_friendrequest_row, parent, false);
+        return new FriendRequestViewHolder(itemView, onClick);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchFriendAdapterViewHolder holder, int position) {
-        if (list.get(position).getId() == SocketCurrent.instance.getClient().getId()) {
-            holder.itemView.setVisibility(View.INVISIBLE);
-            return;
-        }
-        holder.sendFriendRqBtn.setVisibility(View.VISIBLE);
-        holder.acceptFriendBtn.setVisibility(View.GONE);
-        holder.declineFriendBtn.setVisibility(View.GONE);
-        holder.fullnameTxt.setText(list.get(position).getFullName());
-        // check friend
-        for (User u : SocketCurrent.instance.getClient().getFriendList()) {
-            if (u.getId() == list.get(position).getId()) {
-                holder.sendFriendRqBtn.setText("Friend");
-                holder.sendFriendRqBtn.setClickable(false);
-                holder.sendFriendRqBtn.setVisibility(View.VISIBLE);
-                return;
-            }
-        }
-        if (checkFriendSentRequest(list.get(position))) {
-            holder.sendFriendRqBtn.setVisibility(View.GONE);
-            holder.acceptFriendBtn.setVisibility(View.VISIBLE);
-            holder.declineFriendBtn.setVisibility(View.VISIBLE);
-            return;
-        }
-        if (checkMeSentARequest(list.get(position))) {
-            holder.sendFriendRqBtn.setVisibility(View.VISIBLE);
-            holder.sendFriendRqBtn.setText("Sent");
-            holder.sendFriendRqBtn.setClickable(false);
-            holder.acceptFriendBtn.setVisibility(View.GONE);
-            holder.declineFriendBtn.setVisibility(View.GONE);
-            return;
-        }
-
+    public void onBindViewHolder(@NonNull FriendRequestViewHolder holder, int position) {
+        holder.senderNameTxt.setText(friendRequestList.get(position).getSender().getFullName());
     }
-
-    private boolean checkFriendSentRequest(User user) {
-        for (FriendRequest u : SocketCurrent.instance.getClient().getFriendRequestList()) {
-            if (u.getSender().getId() == user.getId() && u.getReceiver().getId() == SocketCurrent.instance.getClient().getId()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean checkMeSentARequest(User user) {
-        for (FriendRequest u : SocketCurrent.instance.getClient().getFriendRequestList()) {
-            if (u.getReceiver().getId() == user.getId() && u.getSender().getId() == SocketCurrent.instance.getClient().getId()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return friendRequestList.size();
     }
 
-    public class SearchFriendAdapterViewHolder extends RecyclerView.ViewHolder {
-        ImageView avatar;
-        TextView fullnameTxt;
-        Button sendFriendRqBtn;
-        Button acceptFriendBtn;
-        Button declineFriendBtn;
-        IClickItem onClick;
-        public SearchFriendAdapterViewHolder(@NonNull View itemView, IClickItem onClick) {
+    public class FriendRequestViewHolder extends RecyclerView.ViewHolder {
+        private ImageView avatarSenderImg;
+        private TextView senderNameTxt;
+        private Button acceptBtn, declineBtn;
+        private IClickItem onClick;
+        public FriendRequestViewHolder(@NonNull View itemView, IClickItem onClick) {
             super(itemView);
-            avatar = (ImageView) itemView.findViewById(com.example.chatapp2.R.id.avatar_search_row_id);
-            fullnameTxt = (TextView) itemView.findViewById(com.example.chatapp2.R.id.name_search_row_id);
-            sendFriendRqBtn = (Button) itemView.findViewById(com.example.chatapp2.R.id.send_request_friend_search_row_id);
-            acceptFriendBtn = (Button) itemView.findViewById(com.example.chatapp2.R.id.accept_request_search_row_id);
-            declineFriendBtn = (Button) itemView.findViewById(com.example.chatapp2.R.id.decline_request_search_row_id);
-
             this.onClick = onClick;
-            itemView.setOnClickListener(new View.OnClickListener() {
+            init(itemView);
+//            setActionListener();
+        }
+
+        private void init(View view) {
+            senderNameTxt = (TextView) view.findViewById(R.id.friend_request_row_name);
+            acceptBtn = (Button)view.findViewById(R.id.friend_request_row_btn_accept_id);
+            declineBtn = (Button)view.findViewById(R.id.friend_request_row_btn_decline_id);
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClick.onClickListener(getAdapterPosition());
+                    onClick.onClickListener(friendRequestList.get(getAdapterPosition()).getSender().getId());
                 }
             });
 
-            sendFriendRqBtn.setOnClickListener(new View.OnClickListener() {
+            acceptBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FriendRequest fr = new FriendRequest();
-                    fr.setSender(SocketCurrent.instance.getClient());
-                    fr.setReceiver(list.get(getAdapterPosition()));
-                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.FRIENDREQUEST));
-                    sendFriendRqBtn.setVisibility(View.VISIBLE);
-                    sendFriendRqBtn.setText("Sent");
-                    sendFriendRqBtn.setClickable(false);
+                    System.out.println("Accept Friend");
+                    ObjectWrapper objectWrapper = new ObjectWrapper(friendRequestList.get(getAdapterPosition()), ConnectionType.ADDFRIEND);
+//                    friendRequestList.remove(getAdapterPosition());
+                    HomeController.getInstance().sendData(objectWrapper);
                 }
             });
-            acceptFriendBtn.setOnClickListener(new View.OnClickListener() {
+
+            declineBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FriendRequest fr = new FriendRequest();
-                    fr.setReceiver(SocketCurrent.instance.getClient());
-                    fr.setSender(list.get(getAdapterPosition()));
-                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.ADDFRIEND));
-                    acceptFriendBtn.setVisibility(View.GONE);
-                    declineFriendBtn.setVisibility(View.GONE);
-                    sendFriendRqBtn.setText("Friend");
-                    sendFriendRqBtn.setEnabled(false);
+                    System.out.println("Decline Friend");
+                    ObjectWrapper objectWrapper = new ObjectWrapper(friendRequestList.get(getAdapterPosition()), ConnectionType.DECLINEFRIEND);
+//                    friendRequestList.remove(getAdapterPosition());
+
+                    HomeController.getInstance().sendData(objectWrapper);
                 }
             });
-            declineFriendBtn.setOnClickListener(new View.OnClickListener() {
+        }
+
+        private void setActionListener() {
+            acceptBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FriendRequest fr = new FriendRequest();
-                    fr.setReceiver(SocketCurrent.instance.getClient());
-                    fr.setSender(list.get(getAdapterPosition()));
-                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.DECLINEFRIEND));
-                    sendFriendRqBtn.setText("Add Friend");
-                    sendFriendRqBtn.setEnabled(true);
-                    acceptFriendBtn.setVisibility(View.GONE);
-                    declineFriendBtn.setVisibility(View.GONE);
+                    // Request Server Accept Friend
+                }
+            });
+
+            declineBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Request Server Decline Friend
                 }
             });
         }

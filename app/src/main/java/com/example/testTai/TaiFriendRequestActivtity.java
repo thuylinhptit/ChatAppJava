@@ -49,7 +49,7 @@ public class TaiFriendRequestActivtity extends AppCompatActivity implements ICli
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-           //     friendRequestAdapter.setFriendRequestList(fr);
+                friendRequestAdapter.setFriendRequestList(fr);
             }
         });
     }
