@@ -4,8 +4,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,8 @@ import com.example.controller.HomeController;
 import com.example.controller.SocketCurrent;
 import com.example.testTai.TaiFriendRequestActivtity;
 import com.example.testTai.TaiWatchProfile;
+
+import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import model.ConnectionType;
@@ -40,6 +44,7 @@ public class SetProfile extends AppCompatActivity {
         username = findViewById(R.id.profile_username_id);
         edit_decline = findViewById(R.id.profile_edit_decline_btn);
         edit_accept = findViewById(R.id.profile_edit_accept_btn);
+        circleImageView.setImageBitmap(HomeController.getInstance().getAvatarImg());
 
 
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -53,16 +58,21 @@ public class SetProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 User u = SocketCurrent.instance.getClient();
-                u.setFullName(fullname.getText().toString());
-                u.setUsername(username.getText().toString());
-                SocketCurrent.instance.setClient(u);
+                if (fullname.getText().toString().length() > 0) {
+                    u.setFullName(fullname.getText().toString());
+//                u.setUsername(username.getText().toString());
+                    SocketCurrent.instance.setClient(u);
 
-                ObjectWrapper objectWrapper = new ObjectWrapper(u, ConnectionType.EDITPROFILE);
-                HomeController.getInstance().sendData(objectWrapper);
-                System.out.println("Send Request Edit Profile");
-                Intent i = new Intent(SetProfile.this, TaiWatchProfile.class);
+                    ObjectWrapper objectWrapper = new ObjectWrapper(u, ConnectionType.EDITPROFILE);
+                    HomeController.getInstance().sendData(objectWrapper);
+                    System.out.println("Send Request Edit Profile");
+                    Intent i = new Intent(SetProfile.this, TaiWatchProfile.class);
+                    i.putExtra("user", u);
+                    startActivity(i);
+                    finish();
+                } else {
 
-                startActivity(i);
+                }
             }
         });
 
@@ -95,6 +105,12 @@ public class SetProfile extends AppCompatActivity {
                 data != null && data.getData()  != null );
         uri = data.getData();
         circleImageView.setImageURI(uri);
+        Matrix image = circleImageView.getImageMatrix();
+        try {
+            HomeController.getInstance().setAvatarImg( MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

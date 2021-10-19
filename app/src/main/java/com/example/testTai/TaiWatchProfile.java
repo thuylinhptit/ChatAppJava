@@ -21,6 +21,7 @@ import com.example.controller.SocketCurrent;
 
 import java.io.Serializable;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import model.ConnectionType;
 import model.ObjectWrapper;
 import model.User;
@@ -30,6 +31,7 @@ public class TaiWatchProfile extends AppCompatActivity {
     Button  editProfile;
     LinearLayout groupedit;
     TextView name;
+    CircleImageView avatar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,20 +41,39 @@ public class TaiWatchProfile extends AppCompatActivity {
     }
 
     private void init() {
+        avatar = findViewById(R.id.getImage);
         editProfile = findViewById(R.id.profile_edit_btn);
         name = findViewById(R.id.textFullName);
         Intent i = getIntent();
-        User u = SocketCurrent.instance.getClient();
+        // Khi nhan vao de xem profile cua nguoi khac
+        User u = (User)(i.getSerializableExtra("user"));
 
+        //Acc chinh cua minh
+//        User u = SocketCurrent.instance.getClient();
+
+        // Nếu mình ấn vào xem profile của mình thì có thể edit,
+        // ngược lại thì không cho vì đây là profile của người khác
+        if (u != null) {
+            name.setText(u.getFullName());
+            if (u.getId() == SocketCurrent.instance.getClient().getId()) {
+                editProfile.setVisibility(View.VISIBLE);
+                avatar.setImageBitmap(HomeController.getInstance().getAvatarImg());
+            } else {
+                editProfile.setVisibility(View.GONE);
+            }
+        } else {
+            editProfile.setVisibility(View.VISIBLE);
+            avatar.setImageBitmap(HomeController.getInstance().getAvatarImg());
+        }
         editProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(TaiWatchProfile.this, SetProfile.class);
                     startActivity(i);
+                    finish();
                 }
             });
-        name.setText(u.getFullName());
-        }
+    }
 
 
     @Override

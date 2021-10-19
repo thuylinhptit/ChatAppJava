@@ -128,9 +128,10 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         roomListViewRecylerView.setLayoutManager(layoutManager);
 
-        roomAdapter = new RoomAdapter(SocketCurrent.instance.getClient().getRoomList(), getApplicationContext(), this);
-        roomListViewRecylerView.setAdapter(roomAdapter);
-
+        if (SocketCurrent.instance != null) {
+            roomAdapter = new RoomAdapter(SocketCurrent.instance.getClient().getRoomList(), getApplicationContext(), this);
+            roomListViewRecylerView.setAdapter(roomAdapter);
+        }
 //        friendWatchbtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -238,12 +239,14 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
     }
 
     public void updateSearchUserToCreateGroup(List<User> users) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                userCreateGroupAdapter.setListUser(users);
-            }
-        });
+        if (userCreateGroupAdapter != null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    userCreateGroupAdapter.setListUser(users);
+                }
+            });
+        }
     }
 
     public void activeOnlineFriend(int userId) {

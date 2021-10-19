@@ -1,5 +1,9 @@
 package com.example.controller;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.graphics.Matrix;
+
 import com.example.chatapp2.ChatScreen;
 import com.example.testTai.TaiChatSceneActivity;
 import com.example.testTai.TaiFriendRequestActivtity;
@@ -26,6 +30,8 @@ public class HomeController {
     private ChatScreen chatScreenActivity;
     private List<Room> roomList;
     private List<ObjectWrapper> listTaskRunning;
+    //Fake
+    private Bitmap avatarImg;
     public HomeController() {
         if (instance == null) {
             instance = this;
@@ -42,6 +48,15 @@ public class HomeController {
     }
 
     public static HomeController getInstance() {return instance;}
+
+    public Bitmap getAvatarImg() {
+        return avatarImg;
+    }
+
+    public void setAvatarImg(Bitmap avatarImg) {
+        this.avatarImg = avatarImg;
+    }
+
     public boolean isRunning() {
         return isRunning;
     }
