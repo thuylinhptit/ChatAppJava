@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp2.R;
 import com.example.controller.HomeController;
+import com.example.controller.SocketCurrent;
 import com.example.interfaces.IClickItem;
 
 
@@ -54,7 +55,12 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
 
     @Override
     public void onBindViewHolder(@NonNull FriendRequestViewHolder holder, int position) {
-        holder.senderNameTxt.setText(friendRequestList.get(position).getSender().getFullName());
+        if (friendRequestList.get(position).getReceiver().getId() == SocketCurrent.instance.getClient().getId()) {
+            holder.senderNameTxt.setText(friendRequestList.get(position).getSender().getFullName());
+        } else {
+            holder.itemView.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     @Override
