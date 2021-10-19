@@ -7,18 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.example.adapter.FriendAdapter;
-import com.example.adapter.SearchFriendAdapter;
+import com.example.adapter.FriendRequestAdapter;
 import com.example.chatapp2.R;
 import com.example.controller.HomeController;
-import com.example.controller.SocketCurrent;
 import com.example.interfaces.IClickItem;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +27,7 @@ public class TaiSearchUserActivity extends AppCompatActivity implements IClickIt
     RecyclerView listResultView;
     EditText nameTxt;
     ImageButton searchBtn;
-    SearchFriendAdapter searchFriendAdapter;
+    FriendRequestAdapter searchFriendAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +40,7 @@ public class TaiSearchUserActivity extends AppCompatActivity implements IClickIt
         nameTxt = findViewById(R.id.search_name_friend_id);
         listResultView = findViewById(R.id.search_list_friend_id);
         searchBtn = findViewById(R.id.search_friend_btn_id);
-        searchFriendAdapter = new SearchFriendAdapter(new ArrayList<User>(), getApplicationContext(), this);
+        searchFriendAdapter = new FriendRequestAdapter(new ArrayList<User>(), getApplicationContext(), this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         listResultView.setLayoutManager(layoutManager);
         listResultView.setAdapter(searchFriendAdapter);

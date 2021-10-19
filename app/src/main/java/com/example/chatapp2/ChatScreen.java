@@ -1,12 +1,18 @@
 package com.example.chatapp2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -42,6 +48,12 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+
         init();
         if (HomeController.getInstance() != null) {
             HomeController.getInstance().setChatScreenActivity(this);
@@ -54,9 +66,64 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected( MenuItem item) {
+        int id = item.getItemId();
+        if( id == R.id.home_search_btn_id){
+            Intent i = new Intent(ChatScreen.this, TaiSearchUserActivity.class);
+            startActivity(i);
+            return true;
+        }
+        else if( id == R.id.watch_profile_id){
+            Intent i = new Intent(ChatScreen.this, TaiWatchProfile.class);
+            i.putExtra("user", SocketCurrent.instance.getClient());
+            startActivity(i);
+            return true;
+
+        }
+        else if( id == R.id.home_create_gr_btn_id){
+            System.out.println("Click to group create");
+            showCustomDialogAddUserCreateGroup();
+            return true;
+
+        }else if( id == R.id.home_friendbtn_id){
+            Intent i = new Intent(ChatScreen.this, TaiFriendScene.class);
+            startActivity(i);
+            return true;
+
+        }else if( id == R.id.home_friendrequestbtn_id){
+            Intent i = new Intent(ChatScreen.this, TaiFriendRequestActivtity.class);
+            startActivity(i);
+            return true;
+
+        }else if( id == R.id.iconLogout){
+            Intent i = new Intent(ChatScreen.this, SplashScreen.class);
+            HomeController.getInstance().setRunning(false);
+            for (ObjectWrapper ob : HomeController.getInstance().getListTaskRunning()) {
+                if (ob.getData() != null) {
+                    if (ob.getData() instanceof Activity) {
+                        ((Activity)ob.getData()).finish();
+                    }
+                }
+            }
+            HomeController.getInstance().logOut();
+            SocketCurrent.instance.logOut();
+            startActivity(i);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void init() {
         roomListViewRecylerView = findViewById(R.id.room_recyleview_id);
-        friendWatchbtn = findViewById(R.id.home_friendbtn_id);
+      //  friendWatchbtn = findViewById(R.id.home_friendbtn_id);
         roomListViewRecylerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         roomListViewRecylerView.setLayoutManager(layoutManager);
@@ -64,50 +131,50 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
         roomAdapter = new RoomAdapter(SocketCurrent.instance.getClient().getRoomList(), getApplicationContext(), this);
         roomListViewRecylerView.setAdapter(roomAdapter);
 
-        friendWatchbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ChatScreen.this, TaiFriendScene.class);
-                startActivity(i);
-            }
-        });
+//        friendWatchbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(ChatScreen.this, TaiFriendScene.class);
+//                startActivity(i);
+//            }
+//        });
 
-        friendRequestWatchBtn = findViewById(R.id.home_friendrequestbtn_id);
-        friendRequestWatchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ChatScreen.this, TaiFriendRequestActivtity.class);
-                startActivity(i);
-            }
-        });
+//        friendRequestWatchBtn = findViewById(R.id.home_friendrequestbtn_id);
+//        friendRequestWatchBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(ChatScreen.this, TaiFriendRequestActivtity.class);
+//                startActivity(i);
+//            }
+//        });
 
-        searchUserBtn = findViewById(R.id.home_search_btn_id);
-        searchUserBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ChatScreen.this, TaiSearchUserActivity.class);
-                startActivity(i);
-            }
-        });
+//        searchUserBtn = findViewById(R.id.home_search_btn_id);
+//        searchUserBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(ChatScreen.this, TaiSearchUserActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
-        watchProfileBtn = findViewById(R.id.watch_profile_id);
-        watchProfileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ChatScreen.this, TaiWatchProfile.class);
-                i.putExtra("user", SocketCurrent.instance.getClient());
-                startActivity(i);
-            }
-        });
+//        watchProfileBtn = findViewById(R.id.watch_profile_id);
+//        watchProfileBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(ChatScreen.this, TaiWatchProfile.class);
+//                i.putExtra("user", SocketCurrent.instance.getClient());
+//                startActivity(i);
+//            }
+//        });
 
-        createGrBtn = findViewById(R.id.home_create_gr_btn_id);
-        createGrBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Click to group create");
-                showCustomDialogAddUserCreateGroup();
-            }
-        });
+//        createGrBtn = findViewById(R.id.home_create_gr_btn_id);
+//        createGrBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                System.out.println("Click to group create");
+//                showCustomDialogAddUserCreateGroup();
+//            }
+//        });
 
     }
     private Dialog dialog;

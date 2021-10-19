@@ -39,7 +39,7 @@ public class TaiFriendRequestActivtity extends AppCompatActivity implements ICli
 
     private void init() {
         friendRequestRecyclerView = findViewById(R.id.friend_request_listview_id);
-        friendRequestAdapter = new FriendRequestAdapter(SocketCurrent.instance.getClient().getFriendRequestList(), getApplicationContext(), this);
+      //  friendRequestAdapter = new FriendRequestAdapter(SocketCurrent.instance.getClient().getFriendRequestList(), getApplicationContext(), this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         friendRequestRecyclerView.setLayoutManager(layoutManager);
         friendRequestRecyclerView.setAdapter(friendRequestAdapter);
@@ -49,7 +49,7 @@ public class TaiFriendRequestActivtity extends AppCompatActivity implements ICli
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                friendRequestAdapter.setFriendRequestList(fr);
+           //     friendRequestAdapter.setFriendRequestList(fr);
             }
         });
     }

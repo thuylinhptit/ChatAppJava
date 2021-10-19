@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/iconProfile"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    
+    >
+    <item android:id="@+id/home_search_btn_id"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Search"
+
+        app:showAsAction="ifRoom"
+        />
+    <item android:id="@+id/watch_profile_id"
         android:title="Profile"
-        android:icon="@drawable/icon_profile"
+
+        app:showAsAction="never"
         />
-    <item android:id="@+id/iconGroup"
+    <item android:id="@+id/home_create_gr_btn_id"
         android:title="Create Group"
-        android:icon="@drawable/icon_group"
+
+        app:showAsAction="never"
         />
-    <item android:id="@+id/iconLight"
-        android:title="Light"
-        android:icon="@drawable/icon_light"
+    <item android:id="@+id/home_friendbtn_id"
+        android:title="List Friend"
+
+        app:showAsAction="never"
         />
-    <item android:id="@+id/iconChangePass"
-        android:title="Change Password"
-        android:icon="@drawable/icon_password"
+    <item android:id="@+id/home_friendrequestbtn_id"
+        android:title="Friend Request"
+
+        app:showAsAction="never"
         />
+
     <item android:id="@+id/iconLogout"
         android:title="Log Out"
-        android:icon="@drawable/icon_logout"
+
+        app:showAsAction="never"
         />
 </menu>

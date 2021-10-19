@@ -24,7 +24,7 @@
         <activity android:name="com.example.testTai.TaiFriendScene" />
         <activity android:name="com.example.testTai.TaiChatSceneActivity" />
         <activity android:name="com.example.testTai.RegisterActivity" />
-        <activity android:name=".ChatScreen" />
+        <activity android:name=".ChatScreen"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".SetProfile" />
         <activity android:name=".Authentication" />

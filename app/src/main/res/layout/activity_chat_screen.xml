@@ -6,80 +6,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="70dp">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="2"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:text="Chat App"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="25sp" />-->
+
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="70dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background2"
-            android:orientation="horizontal">
-            <ImageButton
-                android:id="@+id/watch_profile_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:padding="20dp"
-                android:background="@drawable/ic_btn_profile"
-                tools:ignore="SpeakableTextPresentCheck">
-            </ImageButton>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:text="Chat App"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/white"
-                android:textSize="25sp" />
-
-            <ImageButton
-                android:id="@+id/home_create_gr_btn_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:padding="20dp"
-                android:background="@drawable/ic_baseline_group_add_24"
-                tools:ignore="SpeakableTextPresentCheck">
-            </ImageButton>
-            <ImageButton
-                android:id="@+id/home_friendbtn_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:padding="20dp"
-                android:background="@drawable/listfr_icon"
-                tools:ignore="SpeakableTextPresentCheck">
-            </ImageButton>
-            <ImageButton
-                android:id="@+id/home_friendrequestbtn_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:padding="20dp"
-                android:background="@drawable/addfr_icon"
-                tools:ignore="SpeakableTextPresentCheck">
-            </ImageButton>
-            <ImageButton
-                android:id="@+id/home_search_btn_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:padding="20dp"
-                android:background="@drawable/ic_btn_search_friend"
-                tools:ignore="SpeakableTextPresentCheck">
-            </ImageButton>
-        </LinearLayout>
-
-
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="70dp"
+        app:title="Chat App"
+        app:titleTextColor="@color/white"
+        android:background="@drawable/background2"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/room_recyleview_id"
