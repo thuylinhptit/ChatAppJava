@@ -13,7 +13,10 @@ import com.example.chatapp2.ChatScreen;
 import com.example.chatapp2.R;
 import com.example.controller.HomeController;
 import com.example.controller.SocketCurrent;
+import com.example.controller.UDPLoginController;
 import com.example.interfaces.IClickItem;
+
+import java.util.List;
 
 import model.ConnectionType;
 import model.ObjectWrapper;
@@ -71,9 +74,20 @@ public class TaiFriendScene extends AppCompatActivity implements IClickItem {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
+                while (UDPLoginController.getInstance() != null && HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
                     if (canRequest)
-                        HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIEND));
+                        UDPLoginController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIEND));
+                        ObjectWrapper data = UDPLoginController.getInstance().receiveData();
+                        if (data != null) {
+                            if (data.getChoice() == ConnectionType.REPLY_GETFRIEND) {
+                                List<User> listF = (List<User>) data.getData();
+                                SocketCurrent.instance.getClient().setFriendList(listF);
+
+                                updateFriendList();
+
+                                System.out.println("Get Friend Response");
+                            }
+                        }
                     try {
                         Thread.sleep(3742);
                     } catch (InterruptedException e) {

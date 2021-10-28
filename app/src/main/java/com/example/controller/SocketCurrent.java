@@ -23,8 +23,10 @@ public class SocketCurrent {
     public void logOut() {
         instance = null;
         try {
-            mySocket.close();
-            System.out.println("Log Out!!");
+            if (mySocket != null) {
+                mySocket.close();
+                System.out.println("Log Out!!");
+            }
             client = null;
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,7 +39,7 @@ public class SocketCurrent {
         }
         try {
             this.ipAddress = ip;
-            mySocket = new Socket(ip.getHost(), ip.getPort());
+//            mySocket = new Socket(ip.getHost(), ip.getPort());
             System.out.println("Run here");
         }
         catch ( Exception e ) {

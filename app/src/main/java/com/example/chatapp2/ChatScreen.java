@@ -23,6 +23,7 @@ import com.example.adapter.RoomAdapter;
 import com.example.adapter.UserCreateGroupAdapter;
 import com.example.controller.HomeController;
 import com.example.controller.SocketCurrent;
+import com.example.controller.UDPLoginController;
 import com.example.interfaces.IClickItem;
 import com.example.testTai.TaiChatSceneActivity;
 import com.example.testTai.TaiFriendRequestActivtity;
@@ -206,7 +207,9 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
                 List<User> choosed = userCreateGroupAdapter.listChoosedUser();
                 choosed.add(SocketCurrent.instance.getClient());
                 if (choosed.size() > 2) {
-                    HomeController.getInstance().sendData(new ObjectWrapper(choosed, ConnectionType.CREATEROOM));
+//                    HomeController.getInstance().sendData(new ObjectWrapper(choosed, ConnectionType.CREATEROOM));
+                    UDPLoginController.getInstance().sendData(new ObjectWrapper(choosed, ConnectionType.CREATEROOM));
+
                     dialog.dismiss();
                     dialog = null;
                     System.out.println("Dispose");
@@ -230,7 +233,17 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
             public void onClick(View v) {
 
                 String key = fullnamesearch.getText().toString();
-                HomeController.getInstance().sendData(new ObjectWrapper(key, ConnectionType.SEARCH));
+              //  HomeController.getInstance().sendData(new ObjectWrapper(key, ConnectionType.SEARCH));
+
+                UDPLoginController.getInstance().sendData(new ObjectWrapper(key, ConnectionType.SEARCH));
+                ObjectWrapper data = UDPLoginController.getInstance().receiveData();
+                if (data != null) {
+                    if (data.getChoice() == ConnectionType.REPLY_SEARCH) {
+                        List<User> listS = (List<User>)data.getData();
+                        updateSearchUserToCreateGroup(listS);
+                    }
+                }
+
                 System.out.println("Send Search with: " + key);
             }
         });
@@ -269,11 +282,26 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
+                while (UDPLoginController.getInstance() != null && HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
                     if (canSendRequest) {
+                        // TCP
+                        /*
                         HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETROOM));
+                        */
+                        UDPLoginController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETROOM));
                         System.out.println("Send Update Room");
-                        canSendRequest = false;
+
+                        ObjectWrapper data = UDPLoginController.getInstance().receiveData();;
+                        if (data != null) {
+                            if (data.getChoice() == ConnectionType.REPLY_GETROOM) {
+                                List<Room> roomList = (List<Room>) data.getData();
+                                SocketCurrent.instance.getClient().setRoomList(roomList);
+                                //Update UI
+                                updateRoom(roomList);
+                            }
+                        }
+
+//                        canSendRequest = false;
                     }
                     try {
                         Thread.sleep(2000);

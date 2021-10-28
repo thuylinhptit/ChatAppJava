@@ -12,8 +12,10 @@ import android.widget.ImageButton;
 
 import com.example.adapter.FriendRequestAdapter;
 import com.example.adapter.SearchFriendAdapter;
+import com.example.chatapp2.ChatScreen;
 import com.example.chatapp2.R;
 import com.example.controller.HomeController;
+import com.example.controller.UDPLoginController;
 import com.example.interfaces.IClickItem;
 
 import java.util.ArrayList;
@@ -51,7 +53,18 @@ public class TaiSearchUserActivity extends AppCompatActivity implements IClickIt
             public void onClick(View v) {
                 String key = nameTxt.getText().toString();
                 if (key.length() > 0) {
-                    HomeController.getInstance().sendData(new ObjectWrapper(key, ConnectionType.SEARCH));
+                    //TCP
+                    //HomeController.getInstance().sendData(new ObjectWrapper(key, ConnectionType.SEARCH));
+
+                    //UDP
+                    UDPLoginController.getInstance().sendData(new ObjectWrapper(key, ConnectionType.SEARCH));
+                    ObjectWrapper data = UDPLoginController.getInstance().receiveData();
+                    if (data != null) {
+                        if (data.getChoice() == ConnectionType.REPLY_SEARCH) {
+                            List<User> listS = (List<User>)data.getData();
+                            updateSearchView(listS);
+                        }
+                    }
                 }
             }
         });

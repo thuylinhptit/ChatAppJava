@@ -14,6 +14,7 @@ import com.example.chatapp2.ChatScreen;
 import com.example.chatapp2.LoginActivity;
 import com.example.chatapp2.R;
 import com.example.controller.LoginController;
+import com.example.controller.UDPLoginController;
 
 import model.ConnectionType;
 import model.ObjectWrapper;
@@ -25,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText passwordTxt;
     Button registerBtn, loginBtn;
     LoginController loginController;
+    UDPLoginController udploginController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void init() {
-        loginController = LoginController.getInstance();
-        loginController.setRegisterActivity(this);
+        udploginController = UDPLoginController.getInstance();
+        if (loginController != null)
+            loginController.setRegisterActivity(this);
         firstNameTxt = findViewById(R.id.txtName);
         usernameTxt = findViewById(R.id.txtEmail);
         passwordTxt = findViewById(R.id.txtPwd);
@@ -49,7 +52,15 @@ public class RegisterActivity extends AppCompatActivity {
                 user.setUsername(usernameTxt.getText().toString());
                 user.setPassword(passwordTxt.getText().toString());
 
-                loginController.sendData(new ObjectWrapper(user, ConnectionType.REGISTER));
+                udploginController.sendData(new ObjectWrapper(user, ConnectionType.REGISTER));
+                ObjectWrapper data = udploginController.receiveData();
+                String result = (String)data.getData();
+                if (result.equals("ok")) {
+                    login();
+                    showToast("Successful");
+                } else {
+                    showToast("Error connect server :(");
+                }
             }
         });
 //        loginBtn.setOnClickListener(new View.OnClickListener() {

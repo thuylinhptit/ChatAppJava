@@ -9,12 +9,14 @@ import android.os.StrictMode;
 import android.view.WindowManager;
 
 import com.example.controller.SocketCurrent;
+import com.example.controller.UDPLoginController;
 
 import model.IPAddress;
 
 public class SplashScreen extends AppCompatActivity {
 
     private static int SPLASH_TIMER=3000;
+    public static String host = "192.168.1.21";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +27,7 @@ public class SplashScreen extends AppCompatActivity {
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        new SocketCurrent(new IPAddress("192.168.1.111", 9086));
-
+        new SocketCurrent(new IPAddress(host, 9086));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

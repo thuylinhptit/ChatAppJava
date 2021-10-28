@@ -54,20 +54,27 @@ public class TaiWatchProfile extends AppCompatActivity {
         // Nếu mình ấn vào xem profile của mình thì có thể edit,
         // ngược lại thì không cho vì đây là profile của người khác
         if (u != null) {
+            System.out.println("Watch Profile");
             name.setText(u.getFullName());
             if (u.getId() == SocketCurrent.instance.getClient().getId()) {
                 editProfile.setVisibility(View.VISIBLE);
-                if (HomeController.getInstance().getAvatarImg() == null) {
-                    avatar.setImageResource(R.drawable.user);
-                } else
-                    avatar.setImageBitmap(HomeController.getInstance().getAvatarImg());
+                try {
+                    if (HomeController.getInstance().getAvatarImg() == null) {
+
+                        avatar.setImageResource(R.drawable.user);
+                    } else
+                        avatar.setImageBitmap(HomeController.getInstance().getAvatarImg());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
                 editProfile.setVisibility(View.GONE);
                 avatar.setImageResource(R.drawable.user);
             }
         } else {
             editProfile.setVisibility(View.VISIBLE);
-            avatar.setImageBitmap(HomeController.getInstance().getAvatarImg());
+            if (HomeController.getInstance().getAvatarImg() != null)
+                avatar.setImageBitmap(HomeController.getInstance().getAvatarImg());
         }
         editProfile.setOnClickListener(new View.OnClickListener() {
                 @Override

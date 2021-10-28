@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.controller.HomeController;
 import com.example.controller.SocketCurrent;
+import com.example.controller.UDPLoginController;
 import com.example.interfaces.IClickItem;
 
 import androidx.annotation.NonNull;
@@ -140,7 +141,12 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
                     FriendRequest fr = new FriendRequest();
                     fr.setSender(SocketCurrent.instance.getClient());
                     fr.setReceiver(list.get(getAdapterPosition()));
-                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.FRIENDREQUEST));
+                    //TCP
+//                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.FRIENDREQUEST));
+
+                    //UDP
+                    UDPLoginController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.FRIENDREQUEST));
+                    System.out.println("Sent FR");
                     sendFriendRqBtn.setVisibility(View.VISIBLE);
                     sendFriendRqBtn.setText("Sent");
                     sendFriendRqBtn.setClickable(false);
@@ -152,7 +158,12 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
                     FriendRequest fr = new FriendRequest();
                     fr.setReceiver(SocketCurrent.instance.getClient());
                     fr.setSender(list.get(getAdapterPosition()));
-                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.ADDFRIEND));
+                    // TCP
+//                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.ADDFRIEND));
+
+                    //UDP
+                    UDPLoginController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.ADDFRIEND));
+                    System.out.println("AcceptFriend");
                     acceptFriendBtn.setVisibility(View.GONE);
                     declineFriendBtn.setVisibility(View.GONE);
                     sendFriendRqBtn.setText("Friend");
@@ -165,7 +176,12 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
                     FriendRequest fr = new FriendRequest();
                     fr.setReceiver(SocketCurrent.instance.getClient());
                     fr.setSender(list.get(getAdapterPosition()));
-                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.DECLINEFRIEND));
+                    //TCP
+                    //HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.DECLINEFRIEND));
+
+                    //UDP
+                    UDPLoginController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.DECLINEFRIEND));
+                    System.out.println("DeclineFr");
                     sendFriendRqBtn.setText("Add Friend");
                     sendFriendRqBtn.setEnabled(true);
                     acceptFriendBtn.setVisibility(View.GONE);

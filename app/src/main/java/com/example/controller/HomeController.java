@@ -39,8 +39,11 @@ public class HomeController {
         isRunning = true;
         roomList = new ArrayList<>();
         listTaskRunning = new ArrayList<>();
+
+
         homeListening = new HomeListening();
         homeListening.start();
+        //sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.ONLINE_INFORM));
     }
     public void StopHomeController() {
         isRunning = false;

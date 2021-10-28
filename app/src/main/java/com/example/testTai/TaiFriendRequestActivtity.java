@@ -12,6 +12,7 @@ import com.example.adapter.FriendRequestAdapter;
 import com.example.chatapp2.R;
 import com.example.controller.HomeController;
 import com.example.controller.SocketCurrent;
+import com.example.controller.UDPLoginController;
 import com.example.interfaces.IClickItem;
 
 import java.util.List;
@@ -77,9 +78,19 @@ public class TaiFriendRequestActivtity extends AppCompatActivity implements ICli
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
-                    HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIENDREQUEST));
+                while(UDPLoginController.getInstance()!= null && HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
+                    //TCP
+                    //HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIENDREQUEST));
+                    UDPLoginController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIENDREQUEST));
                     System.out.println("Send Request get all friendRequest");
+                    ObjectWrapper data = UDPLoginController.getInstance().receiveData();
+                    if (data != null) {
+                        if (data.getChoice() == ConnectionType.REPLY_GETFRIENDREQUEST) {
+                            List<FriendRequest> list = (List<FriendRequest>) data.getData();
+                            SocketCurrent.instance.getClient().setFriendRequestList(list);
+                            updateUIFriendRequest(list);
+                        }
+                    }
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {

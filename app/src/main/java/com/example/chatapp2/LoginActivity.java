@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.example.controller.HomeController;
 import com.example.controller.LoginController;
+import com.example.controller.SocketCurrent;
+import com.example.controller.UDPLoginController;
 import com.example.testTai.RegisterActivity;
 
 import model.ConnectionType;
@@ -26,14 +28,26 @@ public class LoginActivity extends AppCompatActivity {
     EditText passwordTxt;
     Button loginBtn, registerBtn;
     private LoginController loginController;
+    private UDPLoginController udploginController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //UDP
+        if (UDPLoginController.getInstance() == null || (UDPLoginController.getInstance() != null && !UDPLoginController.getInstance().isLoggin)) {
+            udploginController = new UDPLoginController(this);
+            udploginController.openConnection();
+        } else {
+        }
+        /*
+        TCP
         if (LoginController.getInstance() == null || (LoginController.getInstance() != null && !LoginController.getInstance().isLoggin)) {
             loginController = new LoginController(this);
             loginController.openConnection();
         }
+        */
         init();
     }
 
@@ -47,7 +61,23 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 User u = new User(usernameTxt.getText().toString(), passwordTxt.getText().toString());
-                loginController.sendData(new ObjectWrapper(u, ConnectionType.LOGIN));
+                //TCP
+                //loginController.sendData(new ObjectWrapper(u, ConnectionType.LOGIN));
+
+                //UDP
+                udploginController.sendData(new ObjectWrapper(u, ConnectionType.LOGIN));
+                ObjectWrapper result = udploginController.receiveData();
+                if (result != null) {
+                    if (result.getChoice() == ConnectionType.REPLY_LOGIN) {
+                        u = (User) result.getData();
+                        if (u != null) {
+                            SocketCurrent.instance.setClient(u);
+                            changeScreenToMain();
+                        } else {
+                            showToast("Incorrect!!");
+                        }
+                    }
+                }
             }
         });
 
@@ -63,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
     public void changeScreenToMain() {
         this.runOnUiThread(new Runnable() {
             public void run() {
-                loginController.closeConnection();
+//                loginController.closeConnection();
                 new HomeController(); // Create Instance of HomeController
                 changeIntent();
             }

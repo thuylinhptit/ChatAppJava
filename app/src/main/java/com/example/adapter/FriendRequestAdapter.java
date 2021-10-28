@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.chatapp2.R;
 import com.example.controller.HomeController;
 import com.example.controller.SocketCurrent;
+import com.example.controller.UDPLoginController;
 import com.example.interfaces.IClickItem;
 
 
@@ -97,7 +98,10 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
                     System.out.println("Accept Friend");
                     ObjectWrapper objectWrapper = new ObjectWrapper(friendRequestList.get(getAdapterPosition()), ConnectionType.ADDFRIEND);
 //                    friendRequestList.remove(getAdapterPosition());
-                    HomeController.getInstance().sendData(objectWrapper);
+                    //TCP
+//                    HomeController.getInstance().sendData(objectWrapper);
+                    //UDP
+                    UDPLoginController.getInstance().sendData(objectWrapper);
                 }
             });
 
@@ -107,8 +111,11 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
                     System.out.println("Decline Friend");
                     ObjectWrapper objectWrapper = new ObjectWrapper(friendRequestList.get(getAdapterPosition()), ConnectionType.DECLINEFRIEND);
 //                    friendRequestList.remove(getAdapterPosition());
+                    //TCP
+//                    HomeController.getInstance().sendData(objectWrapper);
 
-                    HomeController.getInstance().sendData(objectWrapper);
+                    //UDP
+                    UDPLoginController.getInstance().sendData(objectWrapper);
                 }
             });
         }

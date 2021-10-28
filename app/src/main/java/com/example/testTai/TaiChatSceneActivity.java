@@ -51,17 +51,18 @@ public class TaiChatSceneActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         roomId = intent.getIntExtra("roomid", 0);
-        for (Room room : HomeController.getInstance().getRoomList()) {
+        for (Room room : SocketCurrent.instance.getClient().getRoomList()) {
             if (room.getId() == roomId) {
                 messageAdapter = new MessageAdapter(room.getMessages(), getApplicationContext());
                 this.room = room;
                 break;
             }
         }
+
         chatRoomNameTxt = findViewById(R.id.chat_name_room);
         messageTxt = findViewById(R.id.chat_text_id);
         btnSend = (ImageButton) findViewById(R.id.chat_btn_send_id);
-
+        if (room == null) return;
         String nameroom = room.getName();
         if (room.getUserList().size() == 2) {
             if (room.getUserList().get(0).getId() == SocketCurrent.instance.getClient().getId()) {
