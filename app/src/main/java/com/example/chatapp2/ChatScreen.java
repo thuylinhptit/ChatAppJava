@@ -287,11 +287,12 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
     }
 
     public void updateRoom(List<Room> listRoom) {
-
+        if (listRoom == null) return;
         runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
+                if (listRoom == null) return;
                 System.out.println("ListRoom: " + listRoom.size());
                 roomAdapter.setRoom(listRoom);
                 // Stuff that updates the UI

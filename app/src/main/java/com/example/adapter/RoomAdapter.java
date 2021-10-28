@@ -15,6 +15,7 @@ import com.example.chatapp2.R;
 import com.example.controller.SocketCurrent;
 import com.example.interfaces.IClickItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Room;
@@ -29,6 +30,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewRoomHolder
         this.room = room;
         this.context = context;
         this.onClickRoomListener = onClickRoom;
+        if (this.room == null) {
+            room = new ArrayList<>();
+        }
     }
 
     @NonNull
