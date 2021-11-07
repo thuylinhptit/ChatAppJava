@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.example.controller.HomeController;
 import com.example.controller.LoginController;
+import com.example.controller.RMIController;
+import com.example.controller.SocketCurrent;
 import com.example.testTai.RegisterActivity;
 
 import model.ConnectionType;

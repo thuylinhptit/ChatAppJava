@@ -13,7 +13,7 @@ import com.example.controller.SocketCurrent;
 import model.IPAddress;
 
 public class SplashScreen extends AppCompatActivity {
-
+    public static String HOST = "192.168.1.21";
     private static int SPLASH_TIMER=3000;
 
     @Override
@@ -25,7 +25,7 @@ public class SplashScreen extends AppCompatActivity {
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        new SocketCurrent(new IPAddress("192.168.1.21", 9086));
+        new SocketCurrent(new IPAddress(HOST, 9086));
 
         new Handler().postDelayed(new Runnable() {
             @Override
