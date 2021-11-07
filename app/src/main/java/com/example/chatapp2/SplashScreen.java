@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.StrictMode;
 import android.view.WindowManager;
 
+import com.example.controller.RMIController;
 import com.example.controller.SocketCurrent;
 
 import model.IPAddress;
@@ -26,7 +27,7 @@ public class SplashScreen extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         new SocketCurrent(new IPAddress(HOST, 9086));
-
+        new RMIController();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

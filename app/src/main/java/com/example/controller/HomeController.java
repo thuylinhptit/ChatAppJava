@@ -143,9 +143,10 @@ public class HomeController {
                                             case REPLY_CHAT:
                                                 if (task.getData() instanceof TaiChatSceneActivity) {
                                                     System.out.println("Update List Message");
-                                                    List<Message> list = (List<Message>) data.getData();
+                                                    List<Message> list = (List<Message>) data. getData();
                                                     TaiChatSceneActivity taiChatSceneActivity = (TaiChatSceneActivity) task.getData();
-                                                    taiChatSceneActivity.updateUI(list);
+                                                    if (taiChatSceneActivity != null)
+                                                        taiChatSceneActivity.updateUI(list);
                                                 }
                                                 break;
                                             case REPLY_GETROOM:

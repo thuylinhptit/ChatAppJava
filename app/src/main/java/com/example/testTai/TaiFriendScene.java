@@ -12,6 +12,7 @@ import com.example.adapter.FriendAdapter;
 import com.example.chatapp2.ChatScreen;
 import com.example.chatapp2.R;
 import com.example.controller.HomeController;
+import com.example.controller.RMIController;
 import com.example.controller.SocketCurrent;
 import com.example.interfaces.IClickItem;
 
@@ -72,8 +73,12 @@ public class TaiFriendScene extends AppCompatActivity implements IClickItem {
             @Override
             public void run() {
                 while (HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
-                    if (canRequest)
-                        HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIEND));
+                        int idUser = SocketCurrent.instance.getClient().getId();
+                        SocketCurrent.instance.getClient().setFriendList(
+                                RMIController.Instance.getiService().getFriends(idUser)
+                        );
+                        updateFriendList();
+//                        HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIEND));
                     try {
                         Thread.sleep(3742);
                     } catch (InterruptedException e) {

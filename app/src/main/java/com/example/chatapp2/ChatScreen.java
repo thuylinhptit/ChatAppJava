@@ -18,10 +18,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.adapter.RoomAdapter;
 import com.example.adapter.UserCreateGroupAdapter;
 import com.example.controller.HomeController;
+import com.example.controller.RMIController;
 import com.example.controller.SocketCurrent;
 import com.example.interfaces.IClickItem;
 import com.example.testTai.TaiChatSceneActivity;
@@ -230,7 +232,12 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
             public void onClick(View v) {
 
                 String key = fullnamesearch.getText().toString();
-                HomeController.getInstance().sendData(new ObjectWrapper(key, ConnectionType.SEARCH));
+//                HomeController.getInstance().sendData(new ObjectWrapper(key, ConnectionType.SEARCH));
+
+                //RMI
+                updateSearchUserToCreateGroup(
+                        RMIController.Instance.getiService().findUsersByFullName(key)
+                );
                 System.out.println("Send Search with: " + key);
             }
         });
@@ -270,8 +277,15 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
             @Override
             public void run() {
                 while (HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
-                    if (canSendRequest) {
-                        HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETROOM));
+                    if (true) {
+//                        HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETROOM));
+                        //RMI
+                        SocketCurrent.instance.getClient().setRoomList(
+                                RMIController.Instance.getiService().getListRoom(
+                                        SocketCurrent.instance.getClient().getId()
+                                )
+                        );
+                        updateRoom(SocketCurrent.instance.getClient().getRoomList());
                         System.out.println("Send Update Room");
                         canSendRequest = false;
                     }
@@ -306,7 +320,13 @@ public class ChatScreen extends AppCompatActivity implements IClickItem {
 //        }).start();
 
     }
-
+    public void showToast(String text) {
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     public void setCanSendRequest(boolean b) {
         this.canSendRequest = b;
     }

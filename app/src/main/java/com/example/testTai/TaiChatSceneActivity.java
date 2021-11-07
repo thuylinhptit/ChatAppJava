@@ -13,8 +13,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.adapter.MessageAdapter;
+import com.example.chatapp2.ChatScreen;
 import com.example.chatapp2.R;
 import com.example.controller.HomeController;
+import com.example.controller.RMIController;
 import com.example.controller.SocketCurrent;
 import com.example.interfaces.IUpdateUI;
 
@@ -51,7 +53,7 @@ public class TaiChatSceneActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         roomId = intent.getIntExtra("roomid", 0);
-        for (Room room : HomeController.getInstance().getRoomList()) {
+        for (Room room : SocketCurrent.instance.getClient().getRoomList()) {
             if (room.getId() == roomId) {
                 messageAdapter = new MessageAdapter(room.getMessages(), getApplicationContext());
                 this.room = room;
@@ -61,7 +63,11 @@ public class TaiChatSceneActivity extends AppCompatActivity {
         chatRoomNameTxt = findViewById(R.id.chat_name_room);
         messageTxt = findViewById(R.id.chat_text_id);
         btnSend = (ImageButton) findViewById(R.id.chat_btn_send_id);
-
+        if (room == null) {
+            HomeController.getInstance().getChatScreenActivity().showToast("Error");
+            finish();
+            return;
+        }
         String nameroom = room.getName();
         if (room.getUserList().size() == 2) {
             if (room.getUserList().get(0).getId() == SocketCurrent.instance.getClient().getId()) {
@@ -123,9 +129,12 @@ public class TaiChatSceneActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                System.out.println("Run to here");
                 if (list != null) {
-                    if (list.get(0).getRoom().getId() == room.getId())
+                    if (list.get(0).getRoom().getId() == roomId) {
                         messageAdapter.setMessageList(list);
+                        System.out.println("Update Message ");
+                    }
                 }
             }
         });

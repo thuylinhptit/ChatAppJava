@@ -14,6 +14,7 @@ import com.example.chatapp2.ChatScreen;
 import com.example.chatapp2.LoginActivity;
 import com.example.chatapp2.R;
 import com.example.controller.LoginController;
+import com.example.controller.RMIController;
 
 import model.ConnectionType;
 import model.ObjectWrapper;
@@ -49,7 +50,12 @@ public class RegisterActivity extends AppCompatActivity {
                 user.setUsername(usernameTxt.getText().toString());
                 user.setPassword(passwordTxt.getText().toString());
 
-                loginController.sendData(new ObjectWrapper(user, ConnectionType.REGISTER));
+//                loginController.sendData(new ObjectWrapper(user, ConnectionType.REGISTER));
+                //RMI
+                boolean checkRegis = RMIController.Instance.getiService().createAccount(user);
+                if (checkRegis) {
+                    login();
+                }
             }
         });
 //        loginBtn.setOnClickListener(new View.OnClickListener() {

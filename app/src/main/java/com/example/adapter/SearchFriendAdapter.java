@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.controller.HomeController;
+import com.example.controller.RMIController;
 import com.example.controller.SocketCurrent;
 import com.example.interfaces.IClickItem;
 
@@ -140,10 +141,13 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
                     FriendRequest fr = new FriendRequest();
                     fr.setSender(SocketCurrent.instance.getClient());
                     fr.setReceiver(list.get(getAdapterPosition()));
-                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.FRIENDREQUEST));
+//                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.FRIENDREQUEST));
                     sendFriendRqBtn.setVisibility(View.VISIBLE);
                     sendFriendRqBtn.setText("Sent");
                     sendFriendRqBtn.setClickable(false);
+
+                    //RMI
+                    RMIController.Instance.getiService().sendRequest(fr);
                 }
             });
             acceptFriendBtn.setOnClickListener(new View.OnClickListener() {
@@ -152,11 +156,14 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
                     FriendRequest fr = new FriendRequest();
                     fr.setReceiver(SocketCurrent.instance.getClient());
                     fr.setSender(list.get(getAdapterPosition()));
-                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.ADDFRIEND));
+//                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.ADDFRIEND));
                     acceptFriendBtn.setVisibility(View.GONE);
                     declineFriendBtn.setVisibility(View.GONE);
                     sendFriendRqBtn.setText("Friend");
                     sendFriendRqBtn.setEnabled(false);
+
+                    //RMI
+                    RMIController.Instance.getiService().acceptRequest(fr);
                 }
             });
             declineFriendBtn.setOnClickListener(new View.OnClickListener() {
@@ -165,11 +172,13 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
                     FriendRequest fr = new FriendRequest();
                     fr.setReceiver(SocketCurrent.instance.getClient());
                     fr.setSender(list.get(getAdapterPosition()));
-                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.DECLINEFRIEND));
+//                    HomeController.getInstance().sendData(new ObjectWrapper(fr, ConnectionType.DECLINEFRIEND));
                     sendFriendRqBtn.setText("Add Friend");
                     sendFriendRqBtn.setEnabled(true);
                     acceptFriendBtn.setVisibility(View.GONE);
                     declineFriendBtn.setVisibility(View.GONE);
+                    //RMI
+                    RMIController.Instance.getiService().deleteRequest(fr);
                 }
             });
         }

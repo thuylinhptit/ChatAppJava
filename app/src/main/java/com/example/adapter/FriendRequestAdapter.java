@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp2.R;
 import com.example.controller.HomeController;
+import com.example.controller.RMIController;
 import com.example.controller.SocketCurrent;
 import com.example.interfaces.IClickItem;
 
@@ -97,7 +98,10 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
                     System.out.println("Accept Friend");
                     ObjectWrapper objectWrapper = new ObjectWrapper(friendRequestList.get(getAdapterPosition()), ConnectionType.ADDFRIEND);
 //                    friendRequestList.remove(getAdapterPosition());
-                    HomeController.getInstance().sendData(objectWrapper);
+//                    HomeController.getInstance().sendData(objectWrapper);
+
+                    //RMI
+                    RMIController.Instance.getiService().acceptRequest(friendRequestList.get(getAdapterPosition()));
                 }
             });
 
@@ -108,7 +112,10 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
                     ObjectWrapper objectWrapper = new ObjectWrapper(friendRequestList.get(getAdapterPosition()), ConnectionType.DECLINEFRIEND);
 //                    friendRequestList.remove(getAdapterPosition());
 
-                    HomeController.getInstance().sendData(objectWrapper);
+//                    HomeController.getInstance().sendData(objectWrapper);
+                    //RMI
+                    RMIController.Instance.getiService().deleteRequest(friendRequestList.get(getAdapterPosition()));
+
                 }
             });
         }

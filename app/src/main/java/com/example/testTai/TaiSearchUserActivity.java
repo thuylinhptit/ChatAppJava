@@ -14,6 +14,8 @@ import com.example.adapter.FriendRequestAdapter;
 import com.example.adapter.SearchFriendAdapter;
 import com.example.chatapp2.R;
 import com.example.controller.HomeController;
+import com.example.controller.RMIController;
+import com.example.controller.SocketCurrent;
 import com.example.interfaces.IClickItem;
 
 import java.util.ArrayList;
@@ -51,7 +53,13 @@ public class TaiSearchUserActivity extends AppCompatActivity implements IClickIt
             public void onClick(View v) {
                 String key = nameTxt.getText().toString();
                 if (key.length() > 0) {
-                    HomeController.getInstance().sendData(new ObjectWrapper(key, ConnectionType.SEARCH));
+
+                    //RMI
+                    updateSearchView(
+                            RMIController.Instance.getiService().findUsersByFullName(key)
+                    );
+
+//                    HomeController.getInstance().sendData(new ObjectWrapper(key, ConnectionType.SEARCH));
                 }
             }
         });

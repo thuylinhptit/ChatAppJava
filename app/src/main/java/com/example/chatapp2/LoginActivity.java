@@ -49,7 +49,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 User u = new User(usernameTxt.getText().toString(), passwordTxt.getText().toString());
-                loginController.sendData(new ObjectWrapper(u, ConnectionType.LOGIN));
+//                loginController.sendData(new ObjectWrapper(u, ConnectionType.LOGIN));
+                u = RMIController.Instance.getiService().checkLogin(u);
+                if (u != null) {
+                    SocketCurrent.instance.setClient(u);
+                    changeScreenToMain();
+                }
             }
         });
 

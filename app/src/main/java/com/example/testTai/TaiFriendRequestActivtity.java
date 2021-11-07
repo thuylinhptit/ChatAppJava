@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import com.example.adapter.FriendRequestAdapter;
 import com.example.chatapp2.R;
 import com.example.controller.HomeController;
+import com.example.controller.RMIController;
 import com.example.controller.SocketCurrent;
 import com.example.interfaces.IClickItem;
 
@@ -78,10 +79,16 @@ public class TaiFriendRequestActivtity extends AppCompatActivity implements ICli
             @Override
             public void run() {
                 while(HomeController.getInstance() != null && HomeController.getInstance().isRunning()) {
-                    HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIENDREQUEST));
+                    //HomeController.getInstance().sendData(new ObjectWrapper(SocketCurrent.instance.getClient().getId(), ConnectionType.GETFRIENDREQUEST));
+                    //RMI
+                    SocketCurrent.instance.getClient().setFriendRequestList(
+                            RMIController.Instance.getiService().getFriendRequests(
+                                    SocketCurrent.instance.getClient().getId()
+                            )
+                    );
                     System.out.println("Send Request get all friendRequest");
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
