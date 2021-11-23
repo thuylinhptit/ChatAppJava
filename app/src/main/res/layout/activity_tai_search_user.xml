@@ -21,8 +21,8 @@
             android:hint="Input name here"/>
         <ImageButton
             android:id="@+id/search_friend_btn_id"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/ic_baseline_search_24"
             />
